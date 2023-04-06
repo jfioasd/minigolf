@@ -3,7 +3,7 @@ A minimalist stack-based esolang inspired by stack-based golfing languages. It c
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
 | `,`     | (int)    | for loop `[1..n]` |
-|         | (list)   | for each loop in TOS |
+|         | (list)   | foreach loop over TOS |
 | `:`     | (any)    | duplicate TOS |
 | `;`     |          | End a for loop structure |
 | `*`     | (int, int) | Multiply top two stack items |
