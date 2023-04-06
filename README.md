@@ -17,3 +17,10 @@ A minimalist stack-based esolang inspired by stack-based golfing languages. It c
 Input is separated by newlines. It can contain lists of ints or integers.
 
 The entire stack is implicitly outputted after the program.
+
+## TODO
+* Make `s+` push `-1`
+* Implement filter loop
+* Add implicit input
+* Add implicit `;` completion
+* Implement some more flags
