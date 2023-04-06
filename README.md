@@ -26,3 +26,4 @@ The for loop is written like `, ... ;`.
 * Add implicit input
 * Add implicit `;` completion
 * Implement some more flags
+* Implement source code octal encoding / decoding
