@@ -4,6 +4,9 @@ import argparse
 parser = argparse.ArgumentParser(description="minigolf")
 parser.add_argument('file', metavar = "<file>", nargs = '?',
                         type = str)
+parser.add_argument('-t',
+                    action = "store_true",
+                    help = "Print only TOS at the end of the program")
 
 args = parser.parse_args()
 
@@ -36,7 +39,6 @@ def parse(code: str) -> list:
 
 def run(ast: list, n = 2):
     for i in ast:
-        print("COMMAND:", i, "STACK:", stack)
         if type(i) == list: # for loop
             if stack[-1] == list: # foreach
                 temp_list = stack.pop()
@@ -77,4 +79,7 @@ def run(ast: list, n = 2):
 
 run(parse(code))
 
-print("\n".join(map(str,stack)))
+if args.t: # output last item
+    print(stack[-1])
+else:
+    print("\n".join(map(str,stack)))
