@@ -18,6 +18,8 @@ Input is separated by newlines. It can contain lists of ints or integers.
 
 The entire stack is implicitly outputted after the program.
 
+The for loop is written like `, ... ;`.
+
 ## TODO
 * Make `s+` push `-1`
 * Implement filter loop
