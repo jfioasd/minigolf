@@ -19,7 +19,7 @@ It currently has 8 instructions:
 | `n`     |        | Current item in for loop (or `2` if outside of loop) |
 | `s`     |        | swap top two stack items |
 
-Input is separated by newlines. It can contain lists of ints or integers.
+Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
 The entire stack is implicitly outputted after the program.
 
