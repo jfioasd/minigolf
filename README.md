@@ -13,7 +13,7 @@ It currently has 8 instructions:
 | `+`     | (int, int) | Add top two stack items |
 |         | (list) | Length of TOS |
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
-| `n`     |        | Current item in for loop (or `2` if outside of loop) |
+| `y`     |        | Current item in for loop (or `2` if outside of loop) |
 | `s`     |        | swap top two stack items |
 
 Input is separated by newlines. It can contain lists of ints or integers.
@@ -25,7 +25,7 @@ The for loop is written like `, ... ;`.
 ## TODO
 * Make `s+` push `-1`
 * Implement `+` and `*` vectorization
-* Add merge command `.`
+* Add map command `. ... ;`
 * Implement some more flags
 * Charcode I/O flag.
   * strings would push list of codepoints (ord)
