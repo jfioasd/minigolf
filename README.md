@@ -27,7 +27,7 @@ Specifically, the for loop executes the code with `n` as the current iteration v
 
 However, the map loop `_ ... ;` pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
-Since it's terrible at pushing constants, I've added a ton of 1-byte constants into minigolf (which hopefully makes it easier to program in).
+Since it's terrible at pushing constants, I've added a lot of 1-byte constants into minigolf (which hopefully makes it easier to program in). These constants can be found within the source code.
 
 ## TODO
 * Implement some more flags
