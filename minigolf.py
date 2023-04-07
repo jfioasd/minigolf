@@ -2,7 +2,7 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser(description="minigolf")
-parser.add_argument('file', metavar = "<file>", nargs = '?',
+parser.add_argument('file', nargs = 1,
                         type = str)
 parser.add_argument('-t',
                     action = "store_true",
@@ -10,7 +10,7 @@ parser.add_argument('-t',
 
 args = parser.parse_args()
 
-code = open(args.file).read()
+code = open(args.file[0]).read()
 
 stack = []
 
@@ -29,39 +29,67 @@ def parse(code: str) -> list:
     for idx, i in enumerate(code):
         if i == ";": # end_for
             temp = []
-            while result[-1] != ",":
+            while result[-1] not in (",", "_"):
                 temp = [result.pop()] + temp
-            result.pop()
-            result.append(temp)
+            l = result.pop()
+            result.append([l] + temp)
         else: # other
             result.append(i)
     return result
 
 def run(ast: list, n = 2):
     for i in ast:
-        if type(i) == list: # for loop
-            if stack[-1] == list: # foreach
-                temp_list = stack.pop()
-                for n_alt in temp_list:
-                    run(i, n_alt)
-            elif stack[-1] == -1: # filter loop
-                pass
-            else: # [ 1..n ] foreach
-                tmp = stack.pop()
-                for n_alt in range(1, tmp+1):
-                    run(i, n_alt)
+        if type(i) == list: # for loop / map loop
+            x = i[0]
+            i = i[1:]
+            if x == ",": # foreach
+                if stack[-1] == list: # foreach
+                    temp_list = stack.pop()
+                    for n_alt in temp_list:
+                        run(i, n_alt)
+                else: # [ 1..n ] foreach
+                    tmp = stack.pop()
+                    for n_alt in range(1, tmp+1):
+                        run(i, n_alt)
+            else: # `_` map loop
+                if stack[-1] == list: # map each
+                    temp_list = stack.pop()
+                    result = []
+                    for n_alt in temp_list:
+                        run(i, n_alt)
+                        result.append(stack.pop())
+                    stack.append(result)
+                else: # map [ 1..n ]
+                    tmp = stack.pop()
+                    result = []
+                    for n_alt in range(1, tmp+1):
+                        run(i, n_alt)
+                        result.append(stack.pop())
+                    stack.append(result)
         elif i == ":": # dup
             stack.append(stack[-1])
         elif i == "s": # swap
             stack[-1], stack[-2] = stack[-2], stack[-1]
         elif i == "*": # mul / sum
-            if type(stack[-1]) == list:
+            if type(stack[-1]) == list: # (list) - sum
                 stack.append(sum(stack.pop()))
-            else:
+            elif type(stack[-2]) == list: # (list, int) - vectorize
+                a, b = stack.pop(), stack.pop()
+                r = []
+                for i in b:
+                    r.append(i * a)
+                stack.append(r)
+            else: # (int, int) - a * b
                 stack.append(stack.pop() * stack.pop())
         elif i == "+": # add / length
-            if type(stack[-1]) == list:
+            if type(stack[-1]) == list: # (list) - length
                 stack.append(len(stack.pop()))
+            elif type(stack[-2]) == list: # (list, int) - vectorize
+                a, b = stack.pop(), stack.pop()
+                r = []
+                for i in b:
+                    r.append(i + a)
+                stack.append(r)
             else:
                 stack.append(stack.pop() + stack.pop())
         elif i == "n": # current foreach item / 2
