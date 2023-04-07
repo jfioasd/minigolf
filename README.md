@@ -7,7 +7,7 @@ It currently has 9 instructions:
 | `, ... ;`     | (int)    | for loop `[1..n]` |
 |         | (list)   | foreach loop over TOS |
 | `:`     | (any)    | duplicate TOS |
-| `. ... ;`     | (int)     | map over `[1..n]` |
+| `_ ... ;`     | (int)     | map over `[1..n]` |
 |         | (list) | map loop over TOS |
 | `*`     | (int, int) | Multiply top two stack items |
 |         | (list, int) | Vectorize |
@@ -22,6 +22,10 @@ It currently has 9 instructions:
 Input is separated by newlines. It can contain lists of ints or integers.
 
 The entire stack is implicitly outputted after the program.
+
+Specifically, the for loop executes the code with `n` as the current iteration variable; it has no side effects.
+
+However, the map loop `_ ... ;` pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
 ## TODO
 * Make `s+` push `-1`
