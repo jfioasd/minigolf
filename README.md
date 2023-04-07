@@ -1,5 +1,5 @@
 # minigolf
-A minimalist stack-based esolang. It currently has 8 instructions:
+A minimalist stack-based esolang inspired by Nibbles and Vyxal's corpus. It currently has 8 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
 | `,`     | (int)    | for loop `[1..n]` |
