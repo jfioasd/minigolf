@@ -104,6 +104,24 @@ def run(ast: list, n = 2):
                 inputs_idx += 1
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
+        elif i in "0123456789": # push respective digit
+            stack.append(int(i))
+        elif i in "ABCDEFGH": # 10 - 17
+            stack.append(10 + "ABCDEFGH".find(i))
+        elif i in "IJKLMNOPQRST": # -12 - -1
+            stack.append(-12 + "IJKLMNOPQRST".find(i))
+        elif i == "U": # 0.5
+            stack.append(0.5)
+        elif i == "V": # 256
+            stack.append(256)
+        elif i == "W": # 100
+            stack.append(100)
+        elif i == "X": # 1024
+            stack.append(1024)
+        elif i == "Y": # 128
+            stack.append(128)
+        elif i == "Z": # 1000
+            stack.append(1000)
 
 run(parse(code))
 
