@@ -1,7 +1,7 @@
 # minigolf
 A minimalist stack-based esolang inspired Vyxal's corpus.
 
-It currently has 9 instructions:
+It currently has 8 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
 | `, ... ;`     | (int)    | for loop `[1..n]` |
