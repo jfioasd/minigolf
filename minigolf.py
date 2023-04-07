@@ -18,7 +18,11 @@ inputs = []
 
 ins = sys.stdin.read().split("\n")
 for i in ins[:-1]:
-    inputs.append(eval(i))
+    curr = eval(i)
+    if type(curr) == str:
+        inputs.append(list(map(ord, curr)))
+    else:
+        inputs.append(curr)
 
 inputs = list(inputs)
 
