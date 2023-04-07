@@ -8,6 +8,10 @@ parser.add_argument('-t',
                     action = "store_true",
                     help = "Print only TOS at the end of the program")
 
+parser.add_argument('-c',
+                    action = "store_true",
+                    help = "Output list of codepoints as a string")
+
 args = parser.parse_args()
 
 code = open(args.file[0]).read()
@@ -130,6 +134,15 @@ def run(ast: list, n = 2):
             stack.append(18 + "abcdefghjklmopqrtuvwxyz".find(i))
 
 run(parse(code))
+
+if args.c: # output strings from list of codepoints
+    r = []
+    for i in stack:
+        if type(i) == list:
+            r.append("".join(map(chr, i)))
+        else:
+            r.append(i)
+    stack = r
 
 if args.t: # output last item
     print(stack[-1])
