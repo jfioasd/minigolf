@@ -29,8 +29,4 @@ However, the map loop `_ ... ;` pops TOS after each iteration, and pushes a list
 
 Since it's terrible at pushing constants, I've added a lot of 1-byte constants into minigolf (which hopefully makes it easier to program in). These constants can be found within the source code.
 
-## TODO
-* Implement some more flags
-* Charcode I/O flag.
-  * strings would push list of codepoints (ord)
-  * an integer list (of codepoints) would output a string (chr)
+There are also a few flags, which could be found by reading the code.
