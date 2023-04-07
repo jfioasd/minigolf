@@ -122,6 +122,9 @@ def run(ast: list, n = 2):
             stack.append(128)
         elif i == "Z": # 1000
             stack.append(1000)
+        elif i in "abcdefghjklmopqrtuvwxyz": # 18 - 41
+            stack.append(18 + "abcdefghjklmopqrtuvwxyz".find(i))
+
 
 run(parse(code))
 
