@@ -124,7 +124,8 @@ def run(ast: list, n = 2):
             stack.append(1000)
         elif i in "abcdefghjklmopqrtuvwxyz": # 18 - 41
             stack.append(18 + "abcdefghjklmopqrtuvwxyz".find(i))
-
+        elif i in "`~!@#$%^&()-=[]{}\|'\"<>./?" : # 42 - 68
+            stack.append(42 + "`~!@#$%^&()-=[]{}\|'\"<>./?".find(i))
 
 run(parse(code))
 
