@@ -27,8 +27,9 @@ Specifically, the for loop executes the code with `n` as the current iteration v
 
 However, the map loop `_ ... ;` pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
+Since it's terrible at pushing constants, I've added a ton of 1-byte constants into minigolf (which hopefully makes it easier to program in).
+
 ## TODO
-* Make `s+` push `-1`
 * Implement some more flags
 * Charcode I/O flag.
   * strings would push list of codepoints (ord)
