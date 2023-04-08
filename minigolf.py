@@ -37,7 +37,7 @@ def parse(code: str) -> list:
     for idx, i in enumerate(code):
         if i == ";": # end_for
             temp = []
-            while result[-1] not in (",", "_"):
+            while result[-1] != ",":
                 temp = [result.pop()] + temp
             l = result.pop()
             result.append([l] + temp)
@@ -47,33 +47,22 @@ def parse(code: str) -> list:
 
 def run(ast: list, n = 2):
     for i in ast:
-        if type(i) == list: # for loop / map loop
-            x = i[0]
+        if type(i) == list: # map loop
             i = i[1:]
-            if x == ",": # foreach
-                if stack[-1] == list: # foreach
-                    temp_list = stack.pop()
-                    for n_alt in temp_list:
-                        run(i, n_alt)
-                else: # [ 1..n ] foreach
-                    tmp = stack.pop()
-                    for n_alt in range(1, tmp+1):
-                        run(i, n_alt)
-            else: # `_` map loop
-                if stack[-1] == list: # map each
-                    temp_list = stack.pop()
-                    result = []
-                    for n_alt in temp_list:
-                        run(i, n_alt)
-                        result.append(stack.pop())
-                    stack.append(result)
-                else: # map [ 1..n ]
-                    tmp = stack.pop()
-                    result = []
-                    for n_alt in range(1, tmp+1):
-                        run(i, n_alt)
-                        result.append(stack.pop())
-                    stack.append(result)
+            if type(stack[-1]) == list: # map each
+                temp_list = stack.pop()
+                result = []
+                for n_alt in temp_list:
+                    run(i, n_alt)
+                    result.append(stack.pop())
+                stack.append(result)
+            else: # map [ 1..n ]
+                tmp = stack.pop()
+                result = []
+                for n_alt in range(1, tmp+1):
+                    run(i, n_alt)
+                    result.append(stack.pop())
+                stack.append(result)
         elif i == ":": # dup
             stack.append(stack[-1])
         elif i == "s": # swap
@@ -136,8 +125,6 @@ def run(ast: list, n = 2):
             stack.append(128)
         elif i == "Z": # 1000
             stack.append(1000)
-        elif i in "abcdefghjklmopqrtuvwxyz": # 18 - 41
-            stack.append(18 + "abcdefghjklmopqrtuvwxyz".find(i))
 
 run(parse(code))
 
