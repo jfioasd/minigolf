@@ -78,9 +78,15 @@ def run(ast: list, n = 2):
             stack.append(stack[-1])
         elif i == "s": # swap
             stack[-1], stack[-2] = stack[-2], stack[-1]
-        elif i == "*": # mul / sum
-            if type(stack[-1]) == list: # (list) - sum
-                stack.append(sum(stack.pop()))
+        elif i == "*": # mul / sum / flatten
+            if type(stack[-1]) == list: # (list) - sum / flatten
+                tmp_list = stack.pop()
+                f = 0 # 1D list: sum
+                if type(tmp_list[0]) == list:
+                    f = [] # 2D list: flatten
+                for i in tmp_list:
+                    f += i
+                stack.append(f)
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
                 r = []
@@ -130,6 +136,8 @@ def run(ast: list, n = 2):
             stack.append(128)
         elif i == "Z": # 1000
             stack.append(1000)
+        elif i in "abcdefghjklmopqrtuvwxyz": # 18 - 41
+            stack.append(18 + "abcdefghjklmopqrtuvwxyz".find(i))
 
 run(parse(code))
 
