@@ -11,7 +11,8 @@ It currently has 8 instructions:
 |         | (list) | map loop over TOS |
 | `*`     | (int, int) | Multiply top two stack items |
 |         | (list, int) | Vectorize |
-|         | (list) | Sum of TOS |
+|         | (2D list) | Flatten TOS |
+|         | (1D list) | Sum of TOS |
 | `+`     | (int, int) | Add top two stack items |
 |         | (list, int) | Vectorize |
 |         | (list) | Length of TOS |
