@@ -1,13 +1,12 @@
 # minigolf
 A minimalist stack-based esolang inspired Vyxal's corpus.
 
-It currently has 8 instructions:
+It currently has 7 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
-| `, ... ;`     | (int)    | for loop `[1..n]` |
-|         | (list)   | foreach loop over TOS |
+| `, ... ;`     | (int)    | map loop `[1..n]` |
+|         | (list)   | map loop over TOS |
 | `:`     | (any)    | duplicate TOS |
-| `_ ... ;`     | (int)     | map over `[1..n]` |
 |         | (list) | map loop over TOS |
 | `*`     | (int, int) | Multiply top two stack items |
 |         | (list, int) | Vectorize |
@@ -24,9 +23,9 @@ Input is separated by newlines. It can contain lists of ints or integers. Additi
 
 The entire stack is implicitly outputted after the program.
 
-Specifically, the for loop executes the code with `n` as the current iteration variable; it has no side effects.
+Specifically, the map loop executes the code with `n` as the current iteration variable; it has no side effects.
 
-However, the map loop `_ ... ;` pops TOS after each iteration, and pushes a list of each popped item after the loop.
+map pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
 Since it's terrible at pushing constants, I've added a lot of 1-byte constants into minigolf (which hopefully makes it easier to program in). These constants can be found within the source code.
 
