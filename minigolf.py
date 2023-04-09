@@ -113,8 +113,16 @@ def run(ast: list, n = 2):
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
         elif i == "=": # vectorizing equality
-            if type(stack[-1]) == list and type(stack[-2]) == list:
-                stack.append(stack.pop() == stack.pop())
+            if type(stack[-1]) == list and type(stack[-2]) == list: # (list, list): a == b does not vectorize
+                stack.append(int(stack.pop() == stack.pop()))
+            elif type(stack[-1]) != list and type(stack[-2]) == list: # (list, int): vectorizes
+                a, b = stack.pop(), stack.pop()
+                res = []
+                for i in b:
+                    res.append(int(i == a))
+                stack.append(res)
+            elif type(stack[-1]) != list and type(stack[-2]) != list: # (int, int): a == b
+                stack.append(int(stack.pop() == stack.pop()))
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
         elif i in "ABCDEFGH": # 10 - 17
