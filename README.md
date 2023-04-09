@@ -6,15 +6,15 @@ It currently has 8 instructions:
 | :-----: | :------: | :---------: |
 | `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
 |         | (list)   | map loop over TOS |
-| `:`     | (any)    | duplicate TOS |
-| `*`     | (int/list, int) | Multiply top two stack items. Vectorizes |
-|         | (ND list) | Flatten TOS (N > 1) |
-|         | (1D list) | Sum of TOS |
-| `+`     | (int/list, int) | Add top two stack items. Vectorizes |
-|         | (list) | Length of TOS |
+| `:`     | (any)    | Duplicate TOS |
+| `*`     | (int/list, int) | Multiply. (Vectorizes) |
+|         | (ND list) | Flatten. (N > 1) |
+|         | (1D list) | Sum. |
+| `+`     | (int/list, int) | Add. (Vectorizes) |
+|         | (list) | Length. |
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Current item in map loop (or `2` if outside of loop) |
-| `s`     | (any, any) | swap top two stack items |
+| `s`     | (any, any) | Swap. |
 | `=`     | (list/int, list/int) | Equality. Vectorizes |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
