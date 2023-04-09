@@ -58,53 +58,60 @@ def run(ast: list, n = 2):
     for i in ast:
         if type(i) == list: # map loop
             i = i[1:]
-            if type(stack[-1]) == list: # map each
-                temp_list = stack.pop()
-                result = []
-                for n_alt in temp_list:
-                    run(i, n_alt)
-                    result.append(stack.pop())
-                stack.append(result)
-            else: # map [ 1..n ]
-                tmp = stack.pop()
-                result = []
-                for n_alt in range(1, int(tmp+1)):
-                    run(i, n_alt)
-                    result.append(stack.pop())
-                stack.append(result)
+            tmp = stack.pop()
+            result = []
+            if type(tmp) != list: # map each
+                tmp = range(1, int(tmp+1))
+
+            for n_alt in tmp:
+                run(i, n_alt)
+                result.append(stack.pop())
+
+            stack.append(result)
+
         elif i == ":": # dup
             stack.append(stack[-1])
+
         elif i == "s": # swap
             stack[-1], stack[-2] = stack[-2], stack[-1]
+
         elif i == "*": # mul / sum / flatten
             if type(stack[-1]) == list: # (list) - sum / flatten
                 tmp_list = stack.pop()
                 type_arr = list(map(type, tmp_list))
+
                 if list in type_arr: # flatten
                     stack.append(flatten(tmp_list))
                 else: # sum
                     stack.append(sum(tmp_list))
+
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
                 r = []
                 for i in b:
                     r.append(i * a)
                 stack.append(r)
+
             else: # (int, int) - a * b
                 stack.append(stack.pop() * stack.pop())
+
         elif i == "+": # add / length
             if type(stack[-1]) == list: # (list) - length
                 stack.append(len(stack.pop()))
+
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
                 r = []
                 for i in b:
                     r.append(i + a)
                 stack.append(r)
+
             else:
                 stack.append(stack.pop() + stack.pop())
+
         elif i == "n": # current foreach item / 2
             stack.append(n)
+
         elif i == "i": # request next (cyclic) input
             # or push -1 if input is empty.
             if len(inputs) == 0:
@@ -115,21 +122,25 @@ def run(ast: list, n = 2):
                 inputs_idx += 1
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
+
         elif i == "=": # vectorizing equality
-            if type(stack[-1]) == list and type(stack[-2]) == list: # (list, list): a == b does not vectorize
+            if type(stack[-2]) == list: # (list, list): a == b vectorizes
+                # (list, int) also vectorizes
                 a, b = stack.pop(), stack.pop()
                 res = []
-                for i, j in zip(a, b):
-                    res.append(int(a == b))
+
+                if type(a) == list: # (list, list)
+                    for i, j in zip(a, b):
+                        res.append(int(i == j))
+                else: # (list, int)
+                    for i in b:
+                        res.append(int(i == a))
+
                 stack.append(res)
-            elif type(stack[-1]) != list and type(stack[-2]) == list: # (list, int): vectorizes
-                a, b = stack.pop(), stack.pop()
-                res = []
-                for i in b:
-                    res.append(int(i == a))
-                stack.append(res)
-            elif type(stack[-1]) != list and type(stack[-2]) != list: # (int, int): a == b
+
+            else: # (int, int): a == b
                 stack.append(int(stack.pop() == stack.pop()))
+
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
         elif i in "ABCDEFGH": # 10 - 17
