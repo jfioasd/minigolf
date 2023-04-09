@@ -19,7 +19,7 @@ It currently has 8 instructions:
 | `s`     |        | swap top two stack items |
 | `=`     | (int, int) | int(a == b) |
 |         | (list, int) | vectorizes |
-|         | (list, list) | int(a == b) |
+|         | (list, list) | vectorizes |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
