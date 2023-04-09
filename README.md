@@ -1,7 +1,7 @@
 # minigolf
 A minimalist stack-based esolang inspired Vyxal's corpus.
 
-It currently has 7 instructions:
+It currently has 8 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
 | `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
@@ -18,6 +18,9 @@ It currently has 7 instructions:
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Current item in for loop (or `2` if outside of loop) |
 | `s`     |        | swap top two stack items |
+| `=`     | (int, int) | int(a == b) |
+|         | (list, int) | vectorizes |
+|         | (list, list) | int(a == b) |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
