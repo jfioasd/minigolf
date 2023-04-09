@@ -59,7 +59,7 @@ def run(ast: list, n = 2):
             else: # map [ 1..n ]
                 tmp = stack.pop()
                 result = []
-                for n_alt in range(1, tmp+1):
+                for n_alt in range(1, int(tmp+1)):
                     run(i, n_alt)
                     result.append(stack.pop())
                 stack.append(result)
