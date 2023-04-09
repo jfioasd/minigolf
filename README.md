@@ -21,7 +21,7 @@ Input is separated by newlines. It can contain lists of ints or integers. Additi
 
 The entire stack is implicitly outputted after the program.
 
-Specifically, the map loop executes the code with `n` as the current iteration variable.
+The map loop executes the code with `n` as the current iteration variable.
 
 map pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
