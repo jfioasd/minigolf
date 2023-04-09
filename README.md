@@ -15,7 +15,7 @@ It currently has 8 instructions:
 |         | (list, int) | Vectorize |
 |         | (list) | Length of TOS |
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
-| `n`     |        | Current item in for loop (or `2` if outside of loop) |
+| `n`     |        | Current item in map loop (or `2` if outside of loop) |
 | `s`     |        | swap top two stack items |
 | `=`     | (int, int) | int(a == b) |
 |         | (list, int) | vectorizes |
