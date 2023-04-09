@@ -7,7 +7,6 @@ It currently has 8 instructions:
 | `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
 |         | (list)   | map loop over TOS |
 | `:`     | (any)    | duplicate TOS |
-|         | (list) | map loop over TOS |
 | `*`     | (int, int) | Multiply top two stack items |
 |         | (list, int) | Vectorize |
 |         | (2D list) | Flatten TOS |
