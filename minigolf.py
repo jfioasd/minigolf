@@ -45,6 +45,15 @@ def parse(code: str) -> list:
             result.append(i)
     return result
 
+def flatten(a):
+    result = []
+    for i in a:
+        if type(i) == list:
+            result += flatten(i)
+        else:
+            result.append(i)
+    return result
+
 def run(ast: list, n = 2):
     for i in ast:
         if type(i) == list: # map loop
@@ -72,13 +81,7 @@ def run(ast: list, n = 2):
                 tmp_list = stack.pop()
                 type_arr = list(map(type, tmp_list))
                 if list in type_arr: # flatten
-                    f = []
-                    for i in tmp_list:
-                        if type(i) == list:
-                            f += i
-                        else:
-                            f.append(i)
-                    stack.append(f)
+                    stack.append(flatten(tmp_list))
                 else: # sum
                     stack.append(sum(tmp_list))
             elif type(stack[-2]) == list: # (list, int) - vectorize
