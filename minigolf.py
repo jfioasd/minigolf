@@ -114,7 +114,11 @@ def run(ast: list, n = 2):
                     inputs_idx = 0
         elif i == "=": # vectorizing equality
             if type(stack[-1]) == list and type(stack[-2]) == list: # (list, list): a == b does not vectorize
-                stack.append(int(stack.pop() == stack.pop()))
+                a, b = stack.pop(), stack.pop()
+                res = []
+                for i, j in zip(a, b):
+                    res.append(int(a == b))
+                stack.append(res)
             elif type(stack[-1]) != list and type(stack[-2]) == list: # (list, int): vectorizes
                 a, b = stack.pop(), stack.pop()
                 res = []
