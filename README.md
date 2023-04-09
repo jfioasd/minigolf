@@ -9,7 +9,7 @@ It currently has 8 instructions:
 | `:`     | (any)    | duplicate TOS |
 | `*`     | (int, int) | Multiply top two stack items |
 |         | (list, int) | Vectorize |
-|         | (2D list) | Flatten TOS |
+|         | (ND list) | Flatten TOS (N > 1) |
 |         | (1D list) | Sum of TOS |
 | `+`     | (int, int) | Add top two stack items |
 |         | (list, int) | Vectorize |
