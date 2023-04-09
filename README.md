@@ -7,19 +7,15 @@ It currently has 8 instructions:
 | `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
 |         | (list)   | map loop over TOS |
 | `:`     | (any)    | duplicate TOS |
-| `*`     | (int, int) | Multiply top two stack items |
-|         | (list, int) | Vectorize |
+| `*`     | (int/list, int) | Multiply top two stack items. Vectorizes |
 |         | (ND list) | Flatten TOS (N > 1) |
 |         | (1D list) | Sum of TOS |
-| `+`     | (int, int) | Add top two stack items |
-|         | (list, int) | Vectorize |
+| `+`     | (int/list, int) | Add top two stack items. Vectorizes |
 |         | (list) | Length of TOS |
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Current item in map loop (or `2` if outside of loop) |
 | `s`     |        | swap top two stack items |
-| `=`     | (int, int) | int(a == b) |
-|         | (list, int) | vectorizes |
-|         | (list, list) | vectorizes |
+| `=`     | (list/int, list/int) | Equality. Vectorizes |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
