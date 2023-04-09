@@ -14,7 +14,7 @@ It currently has 8 instructions:
 |         | (list) | Length of TOS |
 | `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Current item in map loop (or `2` if outside of loop) |
-| `s`     |        | swap top two stack items |
+| `s`     | (any, any) | swap top two stack items |
 | `=`     | (list/int, list/int) | Equality. Vectorizes |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
