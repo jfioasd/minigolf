@@ -70,12 +70,17 @@ def run(ast: list, n = 2):
         elif i == "*": # mul / sum / flatten
             if type(stack[-1]) == list: # (list) - sum / flatten
                 tmp_list = stack.pop()
-                f = 0 # 1D list: sum
-                if type(tmp_list[0]) == list:
-                    f = [] # 2D list: flatten
-                for i in tmp_list:
-                    f += i
-                stack.append(f)
+                type_arr = list(map(type, tmp_list))
+                if list in type_arr: # flatten
+                    f = []
+                    for i in tmp_list:
+                        if type(i) == list:
+                            f += i
+                        else:
+                            f.append(i)
+                    stack.append(f)
+                else: # sum
+                    stack.append(sum(tmp_list))
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
                 r = []
@@ -107,6 +112,9 @@ def run(ast: list, n = 2):
                 inputs_idx += 1
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
+        elif i == "=": # vectorizing equality
+            if type(stack[-1]) == list and type(stack[-2]) == list:
+                stack.append(stack.pop() == stack.pop())
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
         elif i in "ABCDEFGH": # 10 - 17
