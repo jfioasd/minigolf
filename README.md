@@ -4,7 +4,7 @@ A minimalist stack-based esolang inspired Vyxal's corpus.
 It currently has 7 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
-| `, ... ;`     | (int)    | map loop `[1..n]` |
+| `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
 |         | (list)   | map loop over TOS |
 | `:`     | (any)    | duplicate TOS |
 |         | (list) | map loop over TOS |
