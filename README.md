@@ -4,16 +4,16 @@ A minimalist stack-based esolang inspired by Vyxal's corpus.
 It currently has 8 instructions:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
-| `, ... ;`     | (int / float)    | map loop `[1..int(n)]` |
-|         | (list)   | map loop over TOS |
+| `, ... ;`     | (int / float)    | map over `[1..int(n)]` |
+|         | (list)   | map over TOS |
 | `:`     | (any)    | Duplicate TOS |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
 |         | (ND list) | Flatten. (N > 1) |
 |         | (1D list) | Sum. |
 | `+`     | (int/list, int) | Add. (Vectorizes) |
 |         | (list) | Length. |
-| `i`     |        | Request the next (cyclic) input (or `-1` if input is empty)|
-| `n`     |        | Current item in map loop (or `2` if outside of loop) |
+| `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
+| `n`     |        | Push current item in map (or `2` if outside of loop) |
 | `s`     | (any, any) | Swap. |
 | `=`     | (list/int, list/int) | Equality. (Vectorizes) |
 
