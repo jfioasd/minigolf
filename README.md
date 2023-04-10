@@ -16,6 +16,12 @@ It currently has 8 instructions:
 | `s`     | (any, any) | Swap. |
 | `=`     | (list/int, list/int) | Equality. (Vectorizes) |
 
+Additionally, the following characters transpile to their equivalent minigolf substring:
+
+| Character | Replacement |
+| :-------: | :---------: |
+| `_`       | `0;++` (useful for foreach loops) |
+
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
 The entire stack is implicitly outputted after the program.
