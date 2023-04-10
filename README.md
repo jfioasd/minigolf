@@ -9,7 +9,7 @@ It currently has 8 instructions:
 | `:`     | (any)    | Duplicate TOS |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
 |         | (ND list) | Flatten. |
-| `+`     | (int/list, int) | Add. |
+| `+`     | (int/list, int) | Add. (Vectorizes) |
 |         | (list) | Sum. (Vectorizes at depth 1) |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
