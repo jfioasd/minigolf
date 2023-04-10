@@ -2,7 +2,7 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser(description="minigolf")
-parser.add_argument('file', nargs = "?",
+parser.add_argument('file',
                         type = str)
 
 parser.add_argument('-v',
@@ -19,7 +19,7 @@ if args.v:
     print("v0.3")
     exit(0)
 
-code = open(args.file[0]).read()
+code = open(args.file).read()
 
 stack = []
 
@@ -59,6 +59,12 @@ def flatten(a):
             result.append(i)
     return result
 
+def v_sum(a):
+    try:
+        return sum(a)
+    except:
+        return list(map(v_sum,a))
+
 def run(ast: list, n = 2):
     for i in ast:
         if type(i) == list: # map loop
@@ -80,15 +86,9 @@ def run(ast: list, n = 2):
         elif i == "s": # swap
             stack[-1], stack[-2] = stack[-2], stack[-1]
 
-        elif i == "*": # mul / sum / flatten
-            if type(stack[-1]) == list: # (list) - sum / flatten
-                tmp_list = stack.pop()
-                type_arr = list(map(type, tmp_list))
-
-                if list in type_arr: # flatten
-                    stack.append(flatten(tmp_list))
-                else: # sum
-                    stack.append(sum(tmp_list))
+        elif i == "*": # mul / flatten
+            if type(stack[-1]) == list: # (list) - flatten
+                stack.append(flatten(stack.pop()))
 
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
@@ -100,9 +100,9 @@ def run(ast: list, n = 2):
             else: # (int, int) - a * b
                 stack.append(stack.pop() * stack.pop())
 
-        elif i == "+": # add / length
-            if type(stack[-1]) == list: # (list) - length
-                stack.append(len(stack.pop()))
+        elif i == "+": # add / sum
+            if type(stack[-1]) == list: # (list) - sum
+                stack.append(v_sum(stack.pop()))
 
             elif type(stack[-2]) == list: # (list, int) - vectorize
                 a, b = stack.pop(), stack.pop()
