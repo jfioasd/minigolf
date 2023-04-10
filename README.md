@@ -8,10 +8,9 @@ It currently has 8 instructions:
 |         | (list)   | map over TOS |
 | `:`     | (any)    | Duplicate TOS |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
-|         | (ND list) | Flatten. (N > 1) |
-|         | (1D list) | Sum. |
-| `+`     | (int/list, int) | Add. (Vectorizes) |
-|         | (list) | Length. |
+|         | (ND list) | Flatten. |
+| `+`     | (int/list, int) | Add. (Vectorizes at depth 1) |
+|         | (list) | Sum. |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
 | `s`     | (any, any) | Swap. |
