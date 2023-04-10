@@ -2,17 +2,22 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser(description="minigolf")
-parser.add_argument('file', nargs = 1,
+parser.add_argument('file', nargs = "?",
                         type = str)
-parser.add_argument('-t',
+
+parser.add_argument('-v',
                     action = "store_true",
-                    help = "Print only TOS at the end of the program")
+                    help = "Print minigolf version (for checking ATO updates)")
 
 parser.add_argument('-c',
                     action = "store_true",
                     help = "Output list of codepoints as a string")
 
 args = parser.parse_args()
+
+if args.v:
+    print("v0.3")
+    exit(0)
 
 code = open(args.file[0]).read()
 
@@ -171,7 +176,4 @@ if args.c: # output strings from list of codepoints
             r.append(i)
     stack = r
 
-if args.t: # output last item
-    print(stack[-1])
-else:
-    print("\n".join(map(str,stack)))
+print("\n".join(map(str,stack)))
