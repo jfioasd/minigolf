@@ -165,7 +165,7 @@ def run(ast: list, n = 2):
         elif i == "Z": # 1000
             stack.append(1000)
 
-run(parse(code))
+run(parse(code.replace("_", "0;++")))
 
 if args.c: # output strings from list of codepoints
     r = []
