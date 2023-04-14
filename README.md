@@ -14,7 +14,8 @@ It currently has 8 instructions:
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
 | `s`     | (any, any) | Swap. |
-| `=`     | (list/int, list/int) | Equality. (Vectorizes) |
+| `=`     | (list/int, int) | Equality. (Vectorizes) |
+|         | (list, list) | Zip two lists together. |
 
 Additionally, the following characters transpile to their equivalent minigolf substring:
 
