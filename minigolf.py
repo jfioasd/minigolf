@@ -129,14 +129,14 @@ def run(ast: list, n = 2):
                     inputs_idx = 0
 
         elif i == "=": # vectorizing equality
-            if type(stack[-2]) == list: # (list, list): a == b vectorizes
-                # (list, int) also vectorizes
+            if type(stack[-2]) == list: # (list, int): a == b vectorizes
+                # (list, list) zip two lists together
                 a, b = stack.pop(), stack.pop()
                 res = []
 
-                if type(a) == list: # (list, list)
+                if type(a) == list: # (list, list) - zip.
                     for i, j in zip(a, b):
-                        res.append(int(i == j))
+                        res.append([j, i])
                 else: # (list, int)
                     for i in b:
                         res.append(int(i == a))
