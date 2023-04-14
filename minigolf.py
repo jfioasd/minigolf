@@ -94,11 +94,11 @@ def run(ast: list, n = 2):
                 a, b = stack.pop(), stack.pop()
                 r = []
                 for i in b:
-                    r.append(i * a)
+                    r.append(int(i * a))
                 stack.append(r)
 
             else: # (int, int) - a * b
-                stack.append(stack.pop() * stack.pop())
+                stack.append(int(stack.pop() * stack.pop()))
 
         elif i == "+": # add / sum
             if type(stack[-1]) == list: # (list) - sum
