@@ -171,9 +171,20 @@ if args.c: # output strings from list of codepoints
     r = []
     for i in stack:
         if type(i) == list:
-            r.append("".join(map(chr, i)))
+            if type(i[0]) == list: # >= 2D
+                i = map(flatten, i)
+                x = []
+                for j in i:
+                    if type(j) == list:
+                        x.append(list(map(chr,j)))
+                    else:
+                        x.append(chr(j))
+                print(x)
+                r.append("\n".join(map(lambda o:"".join(o), x)))
+            else:
+                r.append("".join(map(chr, i)))
         else:
-            r.append(i)
+            r.append(chr(i))
     stack = r
 
 print("\n".join(map(str,stack)))
