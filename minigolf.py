@@ -182,7 +182,6 @@ if args.c: # output strings from list of codepoints
                         x.append(list(map(chr,j)))
                     else:
                         x.append(chr(j))
-                print(x)
                 r.append("\n".join(map(lambda o:"".join(o), x)))
             else:
                 r.append("".join(map(chr, i)))
