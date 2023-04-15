@@ -27,11 +27,12 @@ inputs = []
 
 ins = (sys.stdin.read()+"\n").split("\n")
 for i in ins[:-1]:
-    curr = eval(i)
-    if type(curr) == str:
-        inputs.append(list(map(ord, curr)))
-    else:
-        inputs.append(curr)
+    if len(i) > 0:
+        curr = eval(i)
+        if type(curr) == str:
+            inputs.append(list(map(ord, curr)))
+        else:
+            inputs.append(curr)
 
 inputs = list(inputs)
 
@@ -165,7 +166,8 @@ def run(ast: list, n = 2):
         elif i == "Z": # 1000
             stack.append(1000)
 
-run(parse(code.replace("_", "0;++")
+run(parse(code.replace("o", ":#s,ns_,;")
+              .replace("_", "0;++")
               .replace("#", ",1;+")))
 
 if args.c: # output strings from list of codepoints
