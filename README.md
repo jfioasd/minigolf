@@ -22,6 +22,8 @@ Additionally, the following characters transpile to their equivalent minigolf su
 | Character | Replacement |
 | :-------: | :---------: |
 | `_`       | `0;++` (useful for foreach loops) |
+| `#`       | `,1;+` (length of a list) |
+| `o`       | `:#s,ns_,;` (reverse a list) |
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
