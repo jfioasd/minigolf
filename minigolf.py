@@ -16,7 +16,7 @@ parser.add_argument('-c',
 args = parser.parse_args()
 
 if args.v:
-    print("v0.3")
+    print("v0.4")
     exit(0)
 
 code = open(args.file).read()
