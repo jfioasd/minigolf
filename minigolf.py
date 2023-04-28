@@ -86,6 +86,27 @@ def v_sum(a):
     except:
         return list(map(v_sum,a))
 
+def to_base(orig, base):
+    digits = []
+    while orig > 0:
+        digits = [orig % base] + digits
+        orig //= base
+    return digits
+
+def uniquify(x):
+    o = []
+    for i in x:
+        if i not in o:
+            o.append(i)
+    return o
+
+def in_chunks_n(x, l_chunk):
+    o = []
+    while len(x) > 0:
+        o.append(x[0:l_chunk])
+        x = x[l_chunk:]
+    return o
+
 def run(ast: list, n = 2):
     acc = 20 # Very nice for some golfing.
 
@@ -166,6 +187,10 @@ def run(ast: list, n = 2):
         elif i == "u": # Pop TOS to acc.
             acc = stack.pop()
 
+        elif i == "d": # Wrap in chunks of length x.
+            R, L = stack.pop(), stack.pop()
+            stack.append(in_chunks_n(L, R))
+
         elif i == "i": # request next (cyclic) input
             # or push -1 if input is empty.
             if len(inputs) == 0:
@@ -179,6 +204,13 @@ def run(ast: list, n = 2):
 
         elif i == "o": # reverse TOS
             stack.append(list(reversed(stack.pop())))
+
+        elif i == "b": # Convert to base N
+            R, L = stack.pop(), stack.pop()
+            stack.append(to_base(L, R))
+
+        elif i == "y": # Uniquify TOS
+            stack.append(uniquify(stack.pop()))
 
         elif i == "#": # Length of TOS
             stack.append(len(stack.pop()))
@@ -242,7 +274,6 @@ if args.c: # output strings from list of codepoints
                         x.append(list(map(chr,j)))
                     else:
                         x.append(chr(j))
-                print(x)
                 r.append("\n".join(map(lambda o:"".join(o), x)))
             else:
                 r.append("".join(map(chr, i)))
