@@ -18,6 +18,8 @@ The current instructions are as follows:
 | `a`     |        | Push current value of accumulator (initially `20`) |
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
+| `@`     | (list, int) | Indexing: `a[b]` |
+|         | (listA, listB) | Vectorized indexing with listB as indices, returning a list of items. Indices `< 0` or `> len(A)` are ignored. |
 | `s`     | (any, any) | Swap. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `w`     | (any, any) | Nip: `( ... a b -- ... b )`
