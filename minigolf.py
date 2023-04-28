@@ -1,4 +1,5 @@
 import sys
+import math
 import argparse
 
 parser = argparse.ArgumentParser(description="minigolf")
@@ -229,18 +230,30 @@ def run(ast: list, n = 2, x = 32):
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
 
-        elif i == "o": # reverse TOS
-            stack.append(list(reversed(stack.pop())))
+        elif i == "o": # reverse TOS / x + 1
+            L = stack.pop()
+            if type(L) == list:
+                stack.append(list(reversed(L)))
+            else:
+                stack.append(L + 1)
 
         elif i == "b": # Convert to base N
             R, L = stack.pop(), stack.pop()
             stack.append(to_base(L, R))
 
-        elif i == "y": # Uniquify TOS
-            stack.append(uniquify(stack.pop()))
+        elif i == "y": # Uniquify TOS / 2 ** x
+            L = stack.pop()
+            if type(L) == list:
+                stack.append(uniquify(L))
+            else:
+                stack.append(2 ** L)
 
-        elif i == "#": # Length of TOS
-            stack.append(len(stack.pop()))
+        elif i == "#": # Length of TOS / log10
+            L = stack.pop()
+            if type(L) == list:
+                stack.append(len(L))
+            else:
+                stack.append(int(math.log10(L)))
 
         elif i == "=": # vectorizing equality
             if type(stack[-2]) == list: # (list, int): a == b vectorizes
