@@ -62,7 +62,7 @@ Additionally, the following characters transpile to their equivalent minigolf su
 
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
-If there aren't enough stack items for a word's arity, then enough cyclic implicit inputs (analogous to `i`) are prepended to the stack.
+If there aren't enough stack items for a word's arity at any point in execution, then enough cyclic implicit inputs (analogous to `i`) are prepended to the stack.
 
 The entire stack is implicitly outputted after the program.
 
