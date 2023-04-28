@@ -31,9 +31,12 @@ The current instructions are as follows:
 |         | (list, list) | Zip two lists together. |
 | `<`     | (int, int) | Less than. |
 | `#`     | (list) | Length of a list. |
+|         | (int)  | Log10 of X, converted to integer. |
 | `o`     | (list) | Reverse a list. |
+|         | (int)  | X + 1. |
 | `b`     | (intA, intB) | Returns digits of A in base B. |
 | `y`     | (list)     | Uniquify (preserves order). |
+|         | (int)      | 2 ** X. |
 | `d`     | (list, intN) | Wrap in chunks of length N. |
 | `%`     | (int, int) | Modulo. |
 | `/`     | (int, int) | Integer division. |
