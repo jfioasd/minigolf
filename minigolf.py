@@ -181,6 +181,19 @@ def run(ast: list, n = 2, x = 32):
                         o.append(L[j])
                 stack.append(o)
 
+        elif i == "|": # Pair, prepend, append, concat.
+            R, L = stack.pop(), stack.pop()
+            if type(L) == list:
+                if type(R) == list: # concatenate
+                    stack.append(L + R)
+                else: # append
+                    stack.append(L + [R])
+            else:
+                if type(R) == list: # Prepend
+                    stack.append([L] + R)
+                else: # Pair
+                    stack.append([L, R])
+
         elif i == "/": # Integer division (does not vectorize)
             R, L = stack.pop(), stack.pop()
             stack.append(L // R)
