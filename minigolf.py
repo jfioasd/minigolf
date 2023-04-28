@@ -87,6 +87,8 @@ def v_sum(a):
         return list(map(v_sum,a))
 
 def run(ast: list, n = 2):
+    acc = 20 # Very nice for some golfing.
+
     for i in ast:
         if type(i) == list: # Map or string.
             h, i = i[0], i[1:]
@@ -155,6 +157,15 @@ def run(ast: list, n = 2):
         elif i == "n": # current foreach item / 2
             stack.append(n)
 
+        elif i == "a": # Push acc value
+            stack.append(acc)
+
+        elif i == "e": # Tee TOS to acc (does not pop)
+            acc = stack[-1]
+
+        elif i == "u": # Pop TOS to acc.
+            acc = stack.pop()
+
         elif i == "i": # request next (cyclic) input
             # or push -1 if input is empty.
             if len(inputs) == 0:
@@ -192,7 +203,11 @@ def run(ast: list, n = 2):
 
         elif i == "<": # Less than. Scalar only
             R, L = stack.pop(), stack.pop()
-            stack.append(int(L<R))
+            stack.append(int(L < R))
+
+        elif i == "-": # Subtraction.
+            R, L = stack.pop(), stack.pop()
+            stack.append(L - R)
 
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
