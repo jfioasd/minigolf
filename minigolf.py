@@ -16,7 +16,7 @@ parser.add_argument('-c',
 args = parser.parse_args()
 
 if args.v:
-    print("v0.4")
+    print("v0.3")
     exit(0)
 
 code = open(args.file).read()
@@ -40,13 +40,33 @@ inputs_idx = 0
 
 def parse(code: str) -> list:
     result = []
+    is_str = False
     for idx, i in enumerate(code):
-        if i == ";": # end_for
+        if is_str:
+            if i == '$': # End codepoint string
+                temp = ""
+                while result[-1] != '$':
+                    temp = result.pop() + temp
+                result.append(list(result.pop() + temp))
+                is_str = False
+            else:
+                result.append(i)
+        elif is_str == False and i == '$': # begin codepoint string
+            is_str = True
+            result.append("$")
+        elif i == ";" or i == "_": # end_for
             temp = []
             while result[-1] != ",":
                 temp = [result.pop()] + temp
             l = result.pop()
-            result.append([l] + temp)
+            other_temp = [l] + temp
+            if i == "_":
+                other_temp += ["0"]
+            other_temp += [";"]
+            result.append(other_temp)
+            if i == "_":
+                result.append("+")
+                result.append("+")
         else: # other
             result.append(i)
     return result
@@ -68,24 +88,33 @@ def v_sum(a):
 
 def run(ast: list, n = 2):
     for i in ast:
-        if type(i) == list: # map loop
-            i = i[1:]
-            tmp = stack.pop()
-            result = []
-            if type(tmp) != list: # map each
-                tmp = range(1, int(tmp+1))
+        if type(i) == list: # Map or string.
+            h, i = i[0], i[1:]
+            if h == ",": # Map loop
+                tmp = stack.pop()
+                result = []
+                if type(tmp) != list: # map each
+                    tmp = range(1, int(tmp+1))
 
-            for n_alt in tmp:
-                run(i, n_alt)
-                result.append(stack.pop())
+                for n_alt in tmp:
+                    run(i, n_alt)
+                    result.append(stack.pop())
 
-            stack.append(result)
+                stack.append(result)
+            elif h == "$": # str
+                stack.append(list(map(ord, i)))
 
         elif i == ":": # dup
             stack.append(stack[-1])
 
         elif i == "s": # swap
             stack[-1], stack[-2] = stack[-2], stack[-1]
+
+        elif i == "v": # over
+            stack.append(stack[-2])
+
+        elif i == "w": # nip
+            del stack[-2]
 
         elif i == "*": # mul / flatten
             if type(stack[-1]) == list: # (list) - flatten
@@ -115,6 +144,14 @@ def run(ast: list, n = 2):
             else:
                 stack.append(stack.pop() + stack.pop())
 
+        elif i == "/": # Integer division (does not vectorize)
+            R, L = stack.pop(), stack.pop()
+            stack.append(L // R)
+
+        elif i == "%": # Modulo (does not vectorize)
+            R, L = stack.pop(), stack.pop()
+            stack.append(L % R)
+
         elif i == "n": # current foreach item / 2
             stack.append(n)
 
@@ -128,6 +165,12 @@ def run(ast: list, n = 2):
                 inputs_idx += 1
                 if inputs_idx == len(inputs):
                     inputs_idx = 0
+
+        elif i == "o": # reverse TOS
+            stack.append(list(reversed(stack.pop())))
+
+        elif i == "#": # Length of TOS
+            stack.append(len(stack.pop()))
 
         elif i == "=": # vectorizing equality
             if type(stack[-2]) == list: # (list, int): a == b vectorizes
@@ -146,6 +189,10 @@ def run(ast: list, n = 2):
 
             else: # (int, int): a == b
                 stack.append(int(stack.pop() == stack.pop()))
+
+        elif i == "<": # Less than. Scalar only
+            R, L = stack.pop(), stack.pop()
+            stack.append(int(L<R))
 
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
@@ -166,9 +213,7 @@ def run(ast: list, n = 2):
         elif i == "Z": # 1000
             stack.append(1000)
 
-run(parse(code.replace("o", ":#s,ns_,;")
-              .replace("_", "0;++")
-              .replace("#", ",1;+")))
+run(parse(code))
 
 if args.c: # output strings from list of codepoints
     r = []
@@ -182,6 +227,7 @@ if args.c: # output strings from list of codepoints
                         x.append(list(map(chr,j)))
                     else:
                         x.append(chr(j))
+                print(x)
                 r.append("\n".join(map(lambda o:"".join(o), x)))
             else:
                 r.append("".join(map(chr, i)))
