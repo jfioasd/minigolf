@@ -20,7 +20,7 @@ The current instructions are as follows:
 | `u`     |        | Pop TOS to Acc. |
 | `@`     | (list, int) | Indexing: `a[b]` |
 |         | (listA, listB) | Vectorized indexing with listB as indices, returning a list of items. Indices `< 0` or `> len(A)` are ignored. |
-| `|`     | (intA, intB) | Pair: `[A, B]` |
+| `\|`     | (intA, intB) | Pair: `[A, B]` |
 |         | (intA, listB) | Prepend: `[A] + B` |
 |         | (listA, intB) | Append: `A + [B]` |
 |         | (listA, listB) | Concatenate: `A + B` |
