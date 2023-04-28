@@ -18,6 +18,8 @@ The current instructions are as follows:
 | `a`     |        | Push current value of accumulator (initially `20`) |
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
+| `f`     | (any)  | Print TOS (popping). Disables global implicit output. |
+| `"`     | (cond, if_true, if_false) | Ternary if. If `cond` is truthy in minigolf (see below), push `if_true`, else push `if_false`. |
 | `@`     | (list, int) | Indexing: `a[b]` |
 |         | (listA, listB) | Vectorized indexing with listB as indices, returning a list of items. Indices `< 0` or `> len(A)` are ignored. |
 | `\|`     | (intA, intB) | Pair: `[A, B]` |
