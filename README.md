@@ -14,6 +14,9 @@ The current instructions are as follows:
 |         | (list) | Sum. (Vectorizes at depth 1) |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
+| `a`     |        | Push current value of accumulator (initially `20`) |
+| `e`     |        | Copy TOS to Acc, does not pop TOS. |
+| `u`     |        | Pop TOS to Acc. |
 | `s`     | (any, any) | Swap. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `w`     | (any, any) | Nip: `( ... a b -- ... b )`
@@ -24,6 +27,7 @@ The current instructions are as follows:
 | `o`     | (list) | Reverse a list. |
 | `%`     | (int, int) | Modulo. |
 | `/`     | (int, int) | Integer division. |
+| `-`     | (int, int) | Subtraction. |
 
 
 
