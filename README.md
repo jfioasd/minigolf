@@ -34,6 +34,8 @@ The current instructions are as follows:
 |         | (int)  | Log10 of X, converted to integer. |
 | `o`     | (list) | Reverse a list. |
 |         | (int)  | X + 1. |
+| `z`     | (list) | Sort a list. |
+|         | (int)  | X - 1. |
 | `b`     | (intA, intB) | Returns digits of A in base B. |
 | `y`     | (list)     | Uniquify (preserves order). |
 |         | (int)      | 2 ** X. |
