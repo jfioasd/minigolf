@@ -223,6 +223,18 @@ def run(ast: list, n = 2, x = 32):
                         o.append(L[j])
                 stack.append(o)
 
+        elif i == "r": # IndexOf (also vectorizes).
+            R, L = stack.pop(), stack.pop()
+            if type(R) == int: # regular IndexOf (python)
+                try: stack.append(L.index(R))
+                except: stack.append(-1)
+            elif type(R) == list: # Vectorized IndexOf
+                o = []
+                for i in R:
+                    try: o.append(L.index(i))
+                    except: o.append(-1)
+                stack.append(o)
+
         elif i == "|": # Pair, prepend, append, concat.
             R, L = stack.pop(), stack.pop()
             if type(L) == list:
