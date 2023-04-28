@@ -25,6 +25,9 @@ The current instructions are as follows:
 | `<`     | (int, int) | Less than. |
 | `#`     | (list) | Length of a list. |
 | `o`     | (list) | Reverse a list. |
+| `b`     | (intA, intB) | Returns digits of A in base B. |
+| `y`     | (list)     | Uniquify (preserves order). |
+| `d`     | (list, intN) | Wrap in chunks of length N. |
 | `%`     | (int, int) | Modulo. |
 | `/`     | (int, int) | Integer division. |
 | `-`     | (int, int) | Subtraction. |
