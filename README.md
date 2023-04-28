@@ -22,6 +22,8 @@ The current instructions are as follows:
 | `"`     | (cond, if_true, if_false) | Ternary if. If `cond` is truthy in minigolf (see below), push `if_true`, else push `if_false`. |
 | `@`     | (list, int) | Indexing: `a[b]` |
 |         | (listA, listB) | Vectorized indexing with listB as indices, returning a list of items. Indices `< 0` or `> len(A)` are ignored. |
+| `r`     | (listA, intB) | Python's `A.index(B)`, `-1` is returned for not found. |
+|         | (listA, listB) | Vectorizes. Does `A.index(i)` for each item `i` in B, and `-1` is not found. Returns a list of indices. |
 | `\|`     | (intA, intB) | Pair: `[A, B]` |
 |         | (intA, listB) | Prepend: `[A] + B` |
 |         | (listA, intB) | Append: `A + [B]` |
