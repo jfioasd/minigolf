@@ -126,6 +126,8 @@ def split_by(X, sep):
             o[-1].append(i)
     return o
 
+printed = False
+
 def run(ast: list, n = 2, x = 32):
     acc = 20 # Very nice for some golfing.
 
@@ -149,6 +151,13 @@ def run(ast: list, n = 2, x = 32):
         elif i == "x": # Push x
             stack.append(x)
 
+        elif i == '"': # Ternary if.
+            if_false, if_true, cond = stack.pop(), stack.pop(), stack.pop()
+            if minigolf_truthify(cond):
+                stack.append(if_true)
+            else:
+                stack.append(if_false)
+
         elif i == ":": # dup
             stack.append(stack[-1])
 
@@ -160,6 +169,10 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "w": # nip
             del stack[-2]
+
+        elif i == "f": # print TOS
+            print(stack.pop())
+            printed = True
 
         elif i == "!": # Logical not TOS.
             stack.append(1 - minigolf_truthify(stack.pop()))
@@ -233,7 +246,6 @@ def run(ast: list, n = 2, x = 32):
                 stack.append(in_chunks_n(L, R))
             elif type(L) == list and type(R) == list: # Split LHS by RHS (RHS has to be singleton)
                 stack.append(split_by(L, R))
-
 
         elif i == "%": # Modulo (does not vectorize)
             R, L = stack.pop(), stack.pop()
@@ -353,4 +365,5 @@ if args.c: # output strings from list of codepoints
             r.append(chr(i))
     stack = r
 
-print("\n".join(map(str,stack)))
+if not printed:
+    print("\n".join(map(str,stack)))
