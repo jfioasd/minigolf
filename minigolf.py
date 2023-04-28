@@ -108,6 +108,24 @@ def in_chunks_n(x, l_chunk):
         x = x[l_chunk:]
     return o
 
+def minigolf_truthify(x):
+    if type(x) == list:
+        if len(x) >= 1: return 1
+        else: return 0
+    else:
+        if x >= 1: return 1
+        else: return 0
+
+def split_by(X, sep):
+    s = sep[0]
+    o = [[]]
+    for i in X:
+        if i == s:
+            o.append([])
+        else:
+            o[-1].append(i)
+    return o
+
 def run(ast: list, n = 2, x = 32):
     acc = 20 # Very nice for some golfing.
 
@@ -142,6 +160,9 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "w": # nip
             del stack[-2]
+
+        elif i == "!": # Logical not TOS.
+            stack.append(1 - minigolf_truthify(stack.pop()))
 
         elif i == "*": # mul / flatten
             if type(stack[-1]) == list: # (list) - flatten
@@ -196,8 +217,16 @@ def run(ast: list, n = 2, x = 32):
                     stack.append([L, R])
 
         elif i == "/": # Integer division (does not vectorize)
+            # OR: split into chunks of length N.
+            # OR: Split string by char.
             R, L = stack.pop(), stack.pop()
-            stack.append(L // R)
+            if type(L) != list and type(R) != list:
+                stack.append(L // R)
+            elif type(L) == list and type(R) != list:
+                stack.append(in_chunks_n(L, R))
+            elif type(L) == list and type(R) == list: # Split LHS by RHS (RHS has to be singleton)
+                stack.append(split_by(L, R))
+
 
         elif i == "%": # Modulo (does not vectorize)
             R, L = stack.pop(), stack.pop()
@@ -214,10 +243,6 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "u": # Pop TOS to acc.
             acc = stack.pop()
-
-        elif i == "d": # Wrap in chunks of length x.
-            R, L = stack.pop(), stack.pop()
-            stack.append(in_chunks_n(L, R))
 
         elif i == "i": # request next (cyclic) input
             # or push -1 if input is empty.
