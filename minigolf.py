@@ -170,6 +170,17 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(stack.pop() + stack.pop())
 
+        elif i == "@": # Indexing (vectorizes).
+            R, L = stack.pop(), stack.pop()
+            if type(R) == int: # Regular indexing (Python).
+                stack.append(L[R])
+            elif type(R) == list: # Vectorized indexing (good for slices).
+                o = []
+                for j in R:
+                    if j >= 0 and j < len(R):
+                        o.append(L[j])
+                stack.append(o)
+
         elif i == "/": # Integer division (does not vectorize)
             R, L = stack.pop(), stack.pop()
             stack.append(L // R)
