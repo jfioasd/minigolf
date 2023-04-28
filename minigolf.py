@@ -128,10 +128,50 @@ def split_by(X, sep):
 
 printed = False
 
+arities = {
+    ":": 1,
+    "*": 2,
+    "+": 2,
+    "e": 1,
+    "u": 1,
+    "@": 2,
+    "|": 2,
+    "s": 2,
+    '"': 3,
+    "v": 2,
+    "w": 2,
+    "=": 2,
+    "<": 2,
+    "#": 1,
+    "o": 1,
+    "z": 1,
+    "b": 2,
+    "y": 1,
+    "%": 2,
+    "/": 2,
+    "!": 1,
+    "-": 2
+}
+
 def run(ast: list, n = 2, x = 32):
     acc = 20 # Very nice for some golfing.
+    global stack
+    global inputs_idx
 
     for i in ast:
+        if i in arities.keys() and len(stack) < arities[i]:
+            # Rudimentary Implicit input
+            # (takes inputs under the stack)
+            for j in range(arities[i] - len(stack)):
+                # Copy code for `i` here
+                if len(inputs) == 0:
+                    stack = [-1] + stack
+                else:
+                    stack = [inputs[inputs_idx]] + stack
+                    inputs_idx += 1
+                    if inputs_idx == len(inputs):
+                        inputs_idx = 0
+
         if type(i) == list: # Map or string.
             h, i = i[0], i[1:]
             if h == ",": # Map loop
@@ -280,7 +320,6 @@ def run(ast: list, n = 2, x = 32):
             if len(inputs) == 0:
                 stack.append(-1)
             else:
-                global inputs_idx
                 stack.append(inputs[inputs_idx])
                 inputs_idx += 1
                 if inputs_idx == len(inputs):
