@@ -107,7 +107,7 @@ def in_chunks_n(x, l_chunk):
         x = x[l_chunk:]
     return o
 
-def run(ast: list, n = 2):
+def run(ast: list, n = 2, x = 32):
     acc = 20 # Very nice for some golfing.
 
     for i in ast:
@@ -119,13 +119,16 @@ def run(ast: list, n = 2):
                 if type(tmp) != list: # map each
                     tmp = range(1, int(tmp+1))
 
-                for n_alt in tmp:
-                    run(i, n_alt)
+                for x_alt, n_alt in enumerate(tmp):
+                    run(i, n_alt, x_alt)
                     result.append(stack.pop())
 
                 stack.append(result)
             elif h == "$": # str
                 stack.append(list(map(ord, i)))
+
+        elif i == "x": # Push x
+            stack.append(x)
 
         elif i == ":": # dup
             stack.append(stack[-1])
