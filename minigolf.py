@@ -192,6 +192,13 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(stack.pop() + stack.pop())
 
+        elif i == "z": # Sort a list / decrement.
+            L = stack.pop()
+            if type(L) == list:
+                stack.append(sorted(L))
+            else:
+                stack.append(L - 1)
+
         elif i == "@": # Indexing (vectorizes).
             R, L = stack.pop(), stack.pop()
             if type(R) == int: # Regular indexing (Python).
