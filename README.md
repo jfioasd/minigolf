@@ -37,12 +37,16 @@ The current instructions are as follows:
 | `b`     | (intA, intB) | Returns digits of A in base B. |
 | `y`     | (list)     | Uniquify (preserves order). |
 |         | (int)      | 2 ** X. |
-| `d`     | (list, intN) | Wrap in chunks of length N. |
 | `%`     | (int, int) | Modulo. |
 | `/`     | (int, int) | Integer division. |
+|         | (list, intN) | Wrap in chunks of length N. |
+|         | (list, list) | Split left list by right list (right list has to be singleton) |
+| `!`     | (any)      | Logical not - see definition of minigolf truthy below. |
 | `-`     | (int, int) | Subtraction. |
 
-
+minigolf's truthiness is defined like this:
+* if `N` is a list, it's truthy iff `len(N) >= 1`.
+* if `N` is a number, it's truthy iff `N >= 1`.
 
 Additionally, the following characters transpile to their equivalent minigolf substring:
 
