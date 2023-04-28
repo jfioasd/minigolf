@@ -14,6 +14,7 @@ The current instructions are as follows:
 |         | (list) | Sum. (Vectorizes at depth 1) |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
+| `x`     |        | Push current 0-based iteration index in map (or `32` if outside of loop) |
 | `a`     |        | Push current value of accumulator (initially `20`) |
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
