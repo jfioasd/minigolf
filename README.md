@@ -26,32 +26,18 @@ Those commands were added later in order to make minigolf easier to program in:
 | `a`     |        | Push current value of accumulator (initially `20`) |
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
-| `f`     | (any)  | Print TOS (popping). Disables global implicit output. |
-| `"`     | (cond, if_true, if_false) | Ternary if. If `cond` is truthy in minigolf (see below), push `if_true`, else push `if_false`. |
-| `@`     | (list, int) | Indexing: `a[b]` |
-|         | (listA, listB) | Vectorized indexing with listB as indices, returning a list of items. Indices `< 0` or `> len(A)` are ignored. |
-| `r`     | (listA, intB) | Python's `A.index(B)`, `-1` is returned for not found. |
-|         | (listA, listB) | Vectorizes. Does `A.index(i)` for each item `i` in B, and `-1` is not found. Returns a list of indices. |
 | `\|`     | (intA, intB) | Pair: `[A, B]` |
 |         | (intA, listB) | Append: `B + [A]` |
 |         | (listA, intB) | Prepend: `[B] + A` |
 |         | (listA, listB) | Concatenate: `A + B` |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
-| `w`     | (any, any) | Nip: `( ... a b -- ... b )`
 | `<`     | (int, int) | Less than. |
 | `#`     | (list) | Length of a list. |
-|         | (int)  | Log10 of X, converted to integer. |
 | `o`     | (list) | Reverse a list. |
 |         | (int)  | X + 1. |
-| `z`     | (list) | Sort a list. |
-|         | (int)  | X - 1. |
-| `b`     | (intA, intB) | Returns digits of A in base B. |
 | `y`     | (list)     | Uniquify (preserves order). |
 |         | (int)      | 2 ** X. |
 | `%`     | (int, int) | Modulo. |
-| `/`     | (int, int) | Integer division. |
-|         | (list, intN) | Wrap in chunks of length N. |
-|         | (list, list) | Split left list by right list (right list has to be singleton) |
 | `!`     | (any)      | Logical not - see definition of minigolf truthy below. |
 | `-`     | (int, int) | Subtraction. |
 
