@@ -70,6 +70,13 @@ def parse(code: str) -> list:
                 result.append("+")
         else: # other
             result.append(i)
+
+    for i in result:
+        if i == ",":
+            result.append(";")
+    if "," in result:
+        return parse(result)
+
     return result
 
 def flatten(a):
