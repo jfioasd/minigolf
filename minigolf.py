@@ -285,11 +285,11 @@ def run(ast: list, n = 2, x = 32):
             if type(L) == list:
                 if type(R) == list: # concatenate
                     stack.append(L + R)
-                else: # append
-                    stack.append(L + [R])
+                else: # prepend
+                    stack.append([R] + L)
             else:
-                if type(R) == list: # Prepend
-                    stack.append([L] + R)
+                if type(R) == list: # Append
+                    stack.append(R + [L])
                 else: # Pair
                     stack.append([L, R])
 
