@@ -17,7 +17,7 @@ parser.add_argument('-c',
 args = parser.parse_args()
 
 if args.v:
-    print("v0.3")
+    print("v0.5")
     exit(0)
 
 code = open(args.file).read()
@@ -39,7 +39,7 @@ inputs = list(inputs)
 
 inputs_idx = 0
 
-def parse(code: str) -> list:
+def parse(code):
     result = []
     is_str = False
     for idx, i in enumerate(code):
@@ -203,13 +203,6 @@ def run(ast: list, n = 2, x = 32):
         elif i == "x": # Push x
             stack.append(x)
 
-        elif i == '"': # Ternary if.
-            if_false, if_true, cond = stack.pop(), stack.pop(), stack.pop()
-            if minigolf_truthify(cond):
-                stack.append(if_true)
-            else:
-                stack.append(if_false)
-
         elif i == ":": # dup
             stack.append(stack[-1])
 
@@ -218,13 +211,6 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "v": # over
             stack.append(stack[-2])
-
-        elif i == "w": # nip
-            del stack[-2]
-
-        elif i == "f": # print TOS
-            print(stack.pop())
-            printed = True
 
         elif i == "!": # Logical not TOS.
             stack.append(1 - minigolf_truthify(stack.pop()))
@@ -257,36 +243,6 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(stack.pop() + stack.pop())
 
-        elif i == "z": # Sort a list / decrement.
-            L = stack.pop()
-            if type(L) == list:
-                stack.append(sorted(L))
-            else:
-                stack.append(L - 1)
-
-        elif i == "@": # Indexing (vectorizes).
-            R, L = stack.pop(), stack.pop()
-            if type(R) == int: # Regular indexing (Python).
-                stack.append(L[R])
-            elif type(R) == list: # Vectorized indexing (good for slices).
-                o = []
-                for j in R:
-                    if j >= 0 and j < len(R):
-                        o.append(L[j])
-                stack.append(o)
-
-        elif i == "r": # IndexOf (also vectorizes).
-            R, L = stack.pop(), stack.pop()
-            if type(R) == int: # regular IndexOf (python)
-                try: stack.append(L.index(R))
-                except: stack.append(-1)
-            elif type(R) == list: # Vectorized IndexOf
-                o = []
-                for i in R:
-                    try: o.append(L.index(i))
-                    except: o.append(-1)
-                stack.append(o)
-
         elif i == "|": # Pair, prepend, append, concat.
             R, L = stack.pop(), stack.pop()
             if type(L) == list:
@@ -299,17 +255,6 @@ def run(ast: list, n = 2, x = 32):
                     stack.append(R + [L])
                 else: # Pair
                     stack.append([L, R])
-
-        elif i == "/": # Integer division (does not vectorize)
-            # OR: split into chunks of length N.
-            # OR: Split string by char.
-            R, L = stack.pop(), stack.pop()
-            if type(L) != list and type(R) != list:
-                stack.append(L // R)
-            elif type(L) == list and type(R) != list:
-                stack.append(in_chunks_n(L, R))
-            elif type(L) == list and type(R) == list: # Split LHS by RHS (RHS has to be singleton)
-                stack.append(split_by(L, R))
 
         elif i == "%": # Modulo (does not vectorize)
             R, L = stack.pop(), stack.pop()
@@ -344,10 +289,6 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(L + 1)
 
-        elif i == "b": # Convert to base N
-            R, L = stack.pop(), stack.pop()
-            stack.append(to_base(L, R))
-
         elif i == "y": # Uniquify TOS / 2 ** x
             L = stack.pop()
             if type(L) == list:
@@ -355,12 +296,9 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(2 ** L)
 
-        elif i == "#": # Length of TOS / log10
+        elif i == "#": # Length of TOS
             L = stack.pop()
-            if type(L) == list:
-                stack.append(len(L))
-            else:
-                stack.append(int(math.log10(L)))
+            stack.append(len(L))
 
         elif i == "=": # vectorizing equality
             if type(stack[-2]) == list: # (list, int): a == b vectorizes
