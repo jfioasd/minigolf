@@ -159,7 +159,7 @@ def run(ast: list, n = 2, x = 32):
     global inputs_idx
 
     for i in ast:
-        if i in arities.keys() and len(stack) < arities[i]:
+        if type(i) == str and i in arities.keys() and len(stack) < arities[i]:
             # Rudimentary Implicit input
             # (takes inputs under the stack)
             for j in range(arities[i] - len(stack)):
@@ -175,6 +175,11 @@ def run(ast: list, n = 2, x = 32):
         if type(i) == list: # Map or string.
             h, i = i[0], i[1:]
             if h == ",": # Map loop
+                if len(stack) == 0:
+                    stack = [inputs[inputs_idx]] + stack
+                    inputs_idx += 1
+                    if inputs_idx == len(inputs):
+                        inputs_idx = 0
                 tmp = stack.pop()
                 result = []
                 if type(tmp) != list: # map each
