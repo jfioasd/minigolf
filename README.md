@@ -20,6 +20,7 @@ The current instructions are as follows:
 Those commands were added later in order to make minigolf easier to program in:
 
 | Command | Overload | Description |
+| :-----: | :------: | :---------: |
 | `$ ... $` | / | Push an array of codepoints onto the stack|
 | `x`     |        | Push current 0-based iteration index in map (or `32` if outside of loop) |
 | `a`     |        | Push current value of accumulator (initially `20`) |
