@@ -60,16 +60,21 @@ Additionally, the following characters transpile to their equivalent minigolf su
 | :-------: | :---------: |
 | `_`       | `0;++` (useful for foreach loops) |
 
+## I/O method
 Input is separated by newlines. It can contain lists of ints or integers. Additionally, strings push a list of codepoints.
 
 If there aren't enough stack items for a word's arity at any point in execution, then enough cyclic implicit inputs (analogous to `i`) are prepended to the stack.
 
 The entire stack is implicitly outputted after the program.
 
+## Map loop
+If `;` is at the end of the program, it can be omitted from the program.
+
 The map loop executes the code with `n` as the current iteration variable.
 
 map pops TOS after each iteration, and pushes a list of each popped item after the loop.
 
+## Misc.
 Since it's terrible at pushing constants, I've added a lot of 1-byte constants into minigolf (which hopefully makes it easier to program in). These constants can be found within the source code.
 
 There are also a few flags, which could be found by reading the code.
