@@ -25,8 +25,8 @@ The current instructions are as follows:
 | `r`     | (listA, intB) | Python's `A.index(B)`, `-1` is returned for not found. |
 |         | (listA, listB) | Vectorizes. Does `A.index(i)` for each item `i` in B, and `-1` is not found. Returns a list of indices. |
 | `\|`     | (intA, intB) | Pair: `[A, B]` |
-|         | (intA, listB) | Prepend: `[A] + B` |
-|         | (listA, intB) | Append: `A + [B]` |
+|         | (intA, listB) | Append: `B + [A]` |
+|         | (listA, intB) | Prepend: `[B] + A` |
 |         | (listA, listB) | Concatenate: `A + B` |
 | `s`     | (any, any) | Swap. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
