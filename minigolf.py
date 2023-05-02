@@ -147,8 +147,6 @@ arities = {
     ":": 1,
     "*": 1, # treat 2 separately
     "+": 1, # treat 2 separately
-    "e": 1,
-    "u": 1,
     "@": 2,
     "s": 2,
     '"': 3,
@@ -167,7 +165,6 @@ arities = {
 }
 
 def run(ast: list, n = 2, x = 32):
-    acc = 20 # Very nice for some golfing.
     global stack
     global inputs_idx
 
@@ -270,15 +267,6 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "n": # current foreach item / 2
             stack.append(n)
-
-        elif i == "a": # Push acc value
-            stack.append(acc)
-
-        elif i == "e": # Tee TOS to acc (does not pop)
-            acc = stack[-1]
-
-        elif i == "u": # Pop TOS to acc.
-            acc = stack.pop()
 
         elif i == "i": # request next (cyclic) input
             # or push -1 if input is empty.
