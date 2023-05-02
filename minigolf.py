@@ -45,20 +45,12 @@ inputs_idx = 0
 
 def parse(code):
     result = []
-    is_str = False
     for idx, i in enumerate(code):
-        if is_str:
-            if i == '$': # End codepoint string
-                temp = ""
-                while result[-1] != '$':
-                    temp = result.pop() + temp
-                result.append(list(result.pop() + temp))
-                is_str = False
-            else:
-                result.append(i)
-        elif is_str == False and i == '$': # begin codepoint string
-            is_str = True
-            result.append("$")
+        if i == ']': # End codepoint string
+            temp = ""
+            while result[-1] != '[':
+                temp = result.pop() + temp
+            result.append(list(result.pop() + temp))
         elif i == ";" or i == "_": # end_for
             temp = []
             while result[-1] != ",":
@@ -208,8 +200,8 @@ def run(ast: list, n = 2, x = 32):
                     result.append(stack.pop())
 
                 stack.append(result)
-            elif h == "$": # str
-                stack.append(list(map(ord, i)))
+            elif h == "[": # str
+                stack.append(list(map(ord, i[:-1])))
 
         elif i == "x": # Push x
             stack.append(x)
