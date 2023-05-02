@@ -11,7 +11,7 @@ The current instructions are as follows:
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
 |         | (ND list) | Flatten. |
 | `+`     | (int/list, int) | Add. (Vectorizes) |
-|         | (list) | Sum. (Vectorizes at depth 1) |
+|         | (list) | Implicit transpose before summing inner lists. |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
 | `=`     | (list/int, int) | Equality. |
