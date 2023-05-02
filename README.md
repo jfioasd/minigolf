@@ -1,5 +1,5 @@
 # minigolf
-A minimalist stack-based esolang inspired by Vyxal's and Factor's corpus.
+A stack-based esolang inspired by Vyxal's and Factor's corpus.
 
 The current instructions are as follows:
 | Command | Overload | Description |
