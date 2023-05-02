@@ -50,11 +50,12 @@ def parse(code):
     for idx, i in enumerate(code):
         if in_str:
             if i == '[': in_str += 1
-            elif i == ']': in_str -= 1
+            elif i == ']':
+                in_str -= 1
+                if in_str == 0:
+                    result.append(list(s))
+                    s = ""
             s += i
-            if in_str == 0:
-                stack.append(s)
-                s = ""
             continue
         if i == '[': # Begin codepoint string
             in_str += 1
@@ -212,7 +213,7 @@ def run(ast: list, n = 2, x = 32):
 
                 stack.append(result)
             elif h == "[": # str
-                stack.append(list(map(ord, i[:-1])))
+                stack.append(list(map(ord, i)))
 
         elif i == "x": # Push x
             stack.append(x)
