@@ -26,10 +26,6 @@ Those commands were added later in order to make minigolf easier to program in:
 | `a`     |        | Push current value of accumulator (initially `20`) |
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
-| `\|`     | (intA, intB) | Pair: `[A, B]` |
-|         | (intA, listB) | Append: `B + [A]` |
-|         | (listA, intB) | Prepend: `[B] + A` |
-|         | (listA, listB) | Concatenate: `A + B` |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `<`     | (int, int) | Less than. |
 | `#`     | (list) | Length of a list. |
