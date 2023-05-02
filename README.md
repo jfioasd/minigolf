@@ -39,7 +39,6 @@ Those commands were added later in order to make minigolf easier to program in:
 |         | (int)      | 2 ** X. |
 | `%`     | (int, int) | Modulo. |
 | `!`     | (any)      | Logical not - see definition of minigolf truthy below. |
-| `-`     | (int, int) | Subtraction. |
 
 minigolf's truthiness is defined like this:
 * if `N` is a list, it's truthy iff `len(N) >= 1`.
