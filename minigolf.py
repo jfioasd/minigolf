@@ -17,7 +17,7 @@ parser.add_argument('-c',
 args = parser.parse_args()
 
 if args.v:
-    print("v0.5")
+    print("v0.3")
     exit(0)
 
 code = open(args.file).read()
@@ -133,6 +133,15 @@ def split_by(X, sep):
             o[-1].append(i)
     return o
 
+def v_add(LHS, RHS):
+    if type(LHS) != list:
+        return LHS + RHS
+    else:
+        o = []
+        for i in LHS:
+            o.append(v_add(i, RHS))
+        return o
+
 printed = False
 
 arities = {
@@ -234,11 +243,8 @@ def run(ast: list, n = 2, x = 32):
                 stack.append(v_sum(stack.pop()))
 
             elif type(stack[-2]) == list: # (list, int) - vectorize
-                a, b = stack.pop(), stack.pop()
-                r = []
-                for i in b:
-                    r.append(i + a)
-                stack.append(r)
+                R, L = stack.pop(), stack.pop()
+                stack.append(v_add(L, R))
 
             else:
                 stack.append(stack.pop() + stack.pop())
