@@ -14,8 +14,8 @@ The current instructions are as follows:
 |         | (list) | Sum. (Vectorizes at depth 1) |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
-| `=`     | (list/int, int) | Equality. (Vectorizes) |
-|         | (list, list) | Zip two lists together. |
+| `=`     | (list/int, int) | Equality. |
+|         | (list) | Transpose a list. |
 
 Those commands were added later in order to make minigolf easier to program in:
 
