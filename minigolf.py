@@ -328,10 +328,6 @@ def run(ast: list, n = 2, x = 32):
             R, L = stack.pop(), stack.pop()
             stack.append(int(L < R))
 
-        elif i == "-": # Subtraction.
-            R, L = stack.pop(), stack.pop()
-            stack.append(L - R)
-
         elif i in "0123456789": # push respective digit
             stack.append(int(i))
         elif i in "ABCDEFGH": # 10 - 17
