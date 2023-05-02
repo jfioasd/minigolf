@@ -28,6 +28,7 @@ Those commands were added later in order to make minigolf easier to program in:
 | `u`     |        | Pop TOS to Acc. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `<`     | (int, int) | Less than. |
+|         | (list, list) | Lexicographically less than (like in Python). |
 | `#`     | (list) | Length of a list. |
 | `o`     | (list) | Reverse a list. |
 |         | (int)  | X + 1. |
