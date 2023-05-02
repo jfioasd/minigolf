@@ -45,12 +45,20 @@ inputs_idx = 0
 
 def parse(code):
     result = []
+    in_str = 0
+    s = ""
     for idx, i in enumerate(code):
-        if i == ']': # End codepoint string
-            temp = ""
-            while result[-1] != '[':
-                temp = result.pop() + temp
-            result.append(list(result.pop() + temp))
+        if in_str:
+            if i == '[': in_str += 1
+            elif i == ']': in_str -= 1
+            s += i
+            if in_str == 0:
+                stack.append(s)
+                s = ""
+            continue
+        if i == '[': # Begin codepoint string
+            in_str += 1
+            s = "["
         elif i == ";" or i == "_": # end_for
             temp = []
             while result[-1] != ",":
