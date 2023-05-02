@@ -138,6 +138,9 @@ def v_add(LHS, RHS):
             o.append(v_add(i, RHS))
         return o
 
+def transpose(L):
+    return list(map(list,zip(*L)))
+
 printed = False
 
 arities = {
@@ -151,7 +154,7 @@ arities = {
     '"': 3,
     "v": 2,
     "w": 2,
-    "=": 2,
+    "=": 1, # Handle separately in code
     "<": 2,
     "#": 1,
     "o": 1,
@@ -305,23 +308,20 @@ def run(ast: list, n = 2, x = 32):
             L = stack.pop()
             stack.append(len(L))
 
-        elif i == "=": # vectorizing equality
-            if type(stack[-2]) == list: # (list, int): a == b vectorizes
-                # (list, list) zip two lists together
-                a, b = stack.pop(), stack.pop()
-                res = []
+        elif i == "=": # equality
+            if type(stack[-1]) == list: # (list): transpose list
+                stack.append(transpose(stack.pop()))
 
-                if type(a) == list: # (list, list) - zip.
-                    for i, j in zip(a, b):
-                        res.append([j, i])
-                else: # (list, int)
-                    for i in b:
-                        res.append(int(i == a))
-
-                stack.append(res)
-
-            else: # (int, int): a == b
-                stack.append(int(stack.pop() == stack.pop()))
+            else: # (any, int): a == b
+                 if len(stack) == 1:
+                    if len(inputs) == 0:
+                        stack.append(-1)
+                    else:
+                        stack.append(inputs[inputs_idx])
+                        inputs_idx += 1
+                        if inputs_idx == len(inputs):
+                            inputs_idx = 0
+                 stack.append(int(stack.pop() == stack.pop()))
 
         elif i == "<": # Less than. Scalar only
             R, L = stack.pop(), stack.pop()
