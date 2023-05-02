@@ -155,7 +155,6 @@ arities = {
     "e": 1,
     "u": 1,
     "@": 2,
-    "|": 2,
     "s": 2,
     '"': 3,
     "v": 2,
@@ -269,19 +268,6 @@ def run(ast: list, n = 2, x = 32):
 
                 else:
                     stack.append(stack.pop() + stack.pop())
-
-        elif i == "|": # Pair, prepend, append, concat.
-            R, L = stack.pop(), stack.pop()
-            if type(L) == list:
-                if type(R) == list: # concatenate
-                    stack.append(L + R)
-                else: # prepend
-                    stack.append([R] + L)
-            else:
-                if type(R) == list: # Append
-                    stack.append(R + [L])
-                else: # Pair
-                    stack.append([L, R])
 
         elif i == "%": # Modulo (does not vectorize)
             R, L = stack.pop(), stack.pop()
