@@ -14,10 +14,14 @@ parser.add_argument('-c',
                     action = "store_true",
                     help = "Output list of codepoints as a string")
 
+parser.add_argument('-t',
+                    action = "store_true",
+                    help = "Only print TOS at the end of execution")
+
 args = parser.parse_args()
 
 if args.v:
-    print("v0.3")
+    print("v0.5")
     exit(0)
 
 code = open(args.file).read()
@@ -146,8 +150,8 @@ printed = False
 
 arities = {
     ":": 1,
-    "*": 2,
-    "+": 2,
+    "*": 1, # treat 2 separately
+    "+": 1, # treat 2 separately
     "e": 1,
     "u": 1,
     "@": 2,
@@ -227,26 +231,44 @@ def run(ast: list, n = 2, x = 32):
             if type(stack[-1]) == list: # (list) - flatten
                 stack.append(flatten(stack.pop()))
 
-            elif type(stack[-2]) == list: # (list, int) - vectorize
-                a, b = stack.pop(), stack.pop()
-                r = []
-                for i in b:
-                    r.append(int(i * a))
-                stack.append(r)
+            else: # Dyadic case
+                if len(stack) == 1:
+                    if len(inputs) == 0:
+                        stack.append(-1)
+                    else:
+                        stack.append(inputs[inputs_idx])
+                        inputs_idx += 1
+                        if inputs_idx == len(inputs):
+                            inputs_idx = 0
+                if type(stack[-2]) == list: # (list, int) - vectorize
+                    a, b = stack.pop(), stack.pop()
+                    r = []
+                    for i in b:
+                        r.append(int(i * a))
+                    stack.append(r)
 
-            else: # (int, int) - a * b
-                stack.append(int(stack.pop() * stack.pop()))
+                else: # (int, int) - a * b
+                    stack.append(int(stack.pop() * stack.pop()))
 
         elif i == "+": # add / sum
             if type(stack[-1]) == list: # (list) - sum
                 stack.append(v_sum(stack.pop()))
 
-            elif type(stack[-2]) == list: # (list, int) - vectorize
-                R, L = stack.pop(), stack.pop()
-                stack.append(v_add(L, R))
-
             else:
-                stack.append(stack.pop() + stack.pop())
+                if len(stack) == 1:
+                    if len(inputs) == 0:
+                        stack.append(-1)
+                    else:
+                        stack.append(inputs[inputs_idx])
+                        inputs_idx += 1
+                        if inputs_idx == len(inputs):
+                            inputs_idx = 0
+                if type(stack[-2]) == list: # (list, int) - vectorize
+                    R, L = stack.pop(), stack.pop()
+                    stack.append(v_add(L, R))
+
+                else:
+                    stack.append(stack.pop() + stack.pop())
 
         elif i == "|": # Pair, prepend, append, concat.
             R, L = stack.pop(), stack.pop()
@@ -368,4 +390,7 @@ if args.c: # output strings from list of codepoints
     stack = r
 
 if not printed:
-    print("\n".join(map(str,stack)))
+    if args.t:
+        print(stack[-1])
+    else:
+        print("\n".join(map(str,stack)))
