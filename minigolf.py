@@ -331,8 +331,12 @@ def run(ast: list, n = 2, x = 32):
             stack.append(int(i))
         elif i in "ABCDEFGH": # 10 - 17
             stack.append(10 + "ABCDEFGH".find(i))
-        elif i in "IJKLMNOPQRST": # -12 - -1
-            stack.append(-12 + "IJKLMNOPQRST".find(i))
+        elif i == "I": # 32
+            stack.append(32)
+        elif i == "J": # 20
+            stack.append(20)
+        elif i in "KLMNOPQRST": # -10 - -1
+            stack.append(-10 + "KLMNOPQRST".find(i))
         elif i == "U": # 0.5
             stack.append(0.5)
         elif i == "V": # 256
