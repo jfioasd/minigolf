@@ -245,8 +245,8 @@ def run(ast: list, n = 2, x = 32):
                     stack.append(int(stack.pop() * stack.pop()))
 
         elif i == "+": # add / sum
-            if type(stack[-1]) == list: # (list) - sum
-                stack.append(v_sum(stack.pop()))
+            if type(stack[-1]) == list: # (list) - sum (implicit transpose)
+                stack.append(v_sum(transpose(stack.pop())))
 
             else:
                 if len(stack) == 1:
