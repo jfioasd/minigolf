@@ -101,27 +101,6 @@ def v_sum(a):
     except:
         return list(map(v_sum,a))
 
-def to_base(orig, base):
-    digits = []
-    while orig > 0:
-        digits = [orig % base] + digits
-        orig //= base
-    return digits
-
-def uniquify(x):
-    o = []
-    for i in x:
-        if i not in o:
-            o.append(i)
-    return o
-
-def in_chunks_n(x, l_chunk):
-    o = []
-    while len(x) > 0:
-        o.append(x[0:l_chunk])
-        x = x[l_chunk:]
-    return o
-
 def minigolf_truthify(x):
     if type(x) == list:
         if len(x) >= 1: return 1
@@ -341,12 +320,9 @@ def run(ast: list, n = 2, x = 32):
             else:
                 stack.append(L + 1)
 
-        elif i == "y": # Uniquify TOS / 2 ** x
+        elif i == "y": # 2 ** x
             L = stack.pop()
-            if type(L) == list:
-                stack.append(uniquify(L))
-            else:
-                stack.append(2 ** L)
+            stack.append(2 ** L)
 
         elif i == "#": # Length of TOS
             L = stack.pop()
