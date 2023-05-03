@@ -141,7 +141,6 @@ arities = {
     ":": 1,
     "*": 1, # treat 2 separately
     "+": 1, # treat 2 separately
-    "e": 1,
     "u": 1,
     "s": 2,
     "v": 2,
@@ -296,9 +295,6 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "a": # Push acc value
             stack.append(acc)
-
-        elif i == "e": # Tee TOS to acc (does not pop)
-            acc = stack[-1]
 
         elif i == "u": # Pop TOS to acc.
             acc = stack.pop()
