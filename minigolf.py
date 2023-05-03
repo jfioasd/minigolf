@@ -172,6 +172,7 @@ arities = {
     "y": 1,
     "%": 2,
     "/": 2,
+    "\\": 1,
     "!": 1
 }
 
@@ -283,7 +284,7 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "/": # Division (does not vectorize)
             R, L = stack.pop(), stack.pop()
-            stack.append(L / R)
+            stack.append(int(L / R))
 
         elif i == "n": # current foreach item / 2
             stack.append(n)
@@ -326,19 +327,18 @@ def run(ast: list, n = 2, x = 32):
             stack.append(len(L))
 
         elif i == "=": # equality
-            if type(stack[-1]) == list: # (list): transpose list
-                stack.append(transpose(stack.pop()))
+            if len(stack) == 1:
+                if len(inputs) == 0:
+                    stack.append(-1)
+                else:
+                    stack.append(inputs[inputs_idx])
+                    inputs_idx += 1
+                    if inputs_idx == len(inputs):
+                        inputs_idx = 0
+            stack.append(int(stack.pop() == stack.pop()))
 
-            else: # (any, int): a == b
-                 if len(stack) == 1:
-                    if len(inputs) == 0:
-                        stack.append(-1)
-                    else:
-                        stack.append(inputs[inputs_idx])
-                        inputs_idx += 1
-                        if inputs_idx == len(inputs):
-                            inputs_idx = 0
-                 stack.append(int(stack.pop() == stack.pop()))
+        elif i == "\\": # Transpose a list.
+            stack.append(transpose(stack.pop()))
 
         elif i == "<": # Less than. Scalar only
             R, L = stack.pop(), stack.pop()
