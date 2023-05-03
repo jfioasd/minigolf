@@ -2,6 +2,8 @@ import sys
 import math
 import argparse
 
+sys.setrecursionlimit(1 << 30) # Allow deeper recursive calls.
+
 parser = argparse.ArgumentParser(description="minigolf")
 parser.add_argument('file',
                         type = str)
@@ -162,17 +164,12 @@ arities = {
     "+": 1, # treat 2 separately
     "e": 1,
     "u": 1,
-    "@": 2,
     "s": 2,
-    '"': 3,
     "v": 2,
-    "w": 2,
     "=": 1, # Handle separately in code
     "<": 2,
     "#": 1,
     "o": 1,
-    "z": 1,
-    "b": 2,
     "y": 1,
     "%": 2,
     "/": 1, # Handle separately in code.
@@ -233,6 +230,18 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "!": # Logical not TOS.
             stack.append(1 - minigolf_truthify(stack.pop()))
+
+        elif i == "&": # Call TOS / Call TOS with arg.
+            if type(stack[-1]) == list: # Direct call w/ no args.
+                a = "".join(map(chr,stack.pop()))
+                run(a)
+            else: # Call with n = TOS.
+                n_alt = stack.pop()
+                a = "".join(map(chr,stack.pop()))
+                run(a, n_alt)
+
+        elif i == "P": # Print (temporary operation)
+            print(stack.pop())
 
         elif i == "*": # mul / flatten
             if type(stack[-1]) == list: # (list) - flatten
