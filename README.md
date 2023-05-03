@@ -27,6 +27,9 @@ Those commands were added later in order to make minigolf easier to program in:
 | `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
+| `&`     | (list) | Call TOS as a minigolf program. |
+|         | (list, intA) | Call TOS, where `n = A`. |
+| `P`     | (any)  | Print TOS, and pop. |
 | `<`     | (int, int) | Less than. |
 |         | (list, list) | Lexicographically less than (like in Python). |
 | `/`     | (int, int) | Integer division. |
