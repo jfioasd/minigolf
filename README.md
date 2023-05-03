@@ -15,7 +15,7 @@ The current instructions are as follows:
 |         | (2D list) | Vertical sum. |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
-| `=`     | (list/int, int) | Equality. |
+| `=`     | (list/int, int/list) | Equality. |
 
 Those commands were added later in order to make minigolf easier to program in:
 
