@@ -15,7 +15,6 @@ The current instructions are as follows:
 |         | (2D list) | Vertical sum. |
 | `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
-| `=`     | (list/int, int/list) | Equality. |
 
 Those commands were added later in order to make minigolf easier to program in:
 
@@ -29,6 +28,7 @@ Those commands were added later in order to make minigolf easier to program in:
 | `&`     | (list) | Call TOS as a minigolf program. |
 |         | (list, intA) | Call TOS, where `n = A`. |
 | `P`     | (any)  | Print TOS, and pop. |
+| `=`     | (list/int, int/list) | Equality. |
 | `<`     | (int, int) | Less than. |
 |         | (list, list) | Lexicographically less than (like in Python). |
 | `/`     | (int, int) | Integer division. |
