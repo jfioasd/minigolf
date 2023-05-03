@@ -148,7 +148,11 @@ def v_add(LHS, RHS):
         return o
 
 def transpose(L):
-    return list(map(list,zip(*L)))
+    if type(L[0]) == int:
+        return list(map(lambda x: [x],L))
+    o = list(map(list,zip(*L)))
+    if len(o) == 1: o = o[0]
+    return o
 
 printed = False
 
@@ -171,8 +175,7 @@ arities = {
     "b": 2,
     "y": 1,
     "%": 2,
-    "/": 2,
-    "\\": 1,
+    "/": 1, # Handle separately in code.
     "!": 1
 }
 
@@ -283,8 +286,22 @@ def run(ast: list, n = 2, x = 32):
             stack.append(L % R)
 
         elif i == "/": # Division (does not vectorize)
-            R, L = stack.pop(), stack.pop()
-            stack.append(int(L / R))
+            # Or transpose for lists.
+            R = stack.pop()
+            if type(R) == list:
+                stack.append(transpose(R))
+            else:
+                if len(stack) == 0:
+                    if len(inputs) == 0:
+                        stack.append(-1)
+                    else:
+                        stack.append(inputs[inputs_idx])
+                        inputs_idx += 1
+                        if inputs_idx == len(inputs):
+                            inputs_idx = 0
+                L = stack.pop()
+                stack.append(L // R)
+
 
         elif i == "n": # current foreach item / 2
             stack.append(n)
@@ -336,9 +353,6 @@ def run(ast: list, n = 2, x = 32):
                     if inputs_idx == len(inputs):
                         inputs_idx = 0
             stack.append(int(stack.pop() == stack.pop()))
-
-        elif i == "\\": # Transpose a list.
-            stack.append(transpose(stack.pop()))
 
         elif i == "<": # Less than. Scalar only
             R, L = stack.pop(), stack.pop()
