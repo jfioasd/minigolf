@@ -29,7 +29,8 @@ Those commands were added later in order to make minigolf easier to program in:
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `<`     | (int, int) | Less than. |
 |         | (list, list) | Lexicographically less than (like in Python). |
-| `\`     | (list) | Transpose a list. |
+| `/`     | (int, int) | Integer division. |
+|         | (list) | Transpose a list. |
 | `#`     | (list) | Length of a list. |
 | `o`     | (list) | Reverse a list. |
 |         | (int)  | X + 1. |
