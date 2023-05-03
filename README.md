@@ -5,7 +5,7 @@ The current instructions are as follows:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
 | `, ... ;`     | (list)    | Map loop. |
-|         | (intN)   | map over `[1..int(N)]` |
+|         | (intN)   | Map over `[1..int(N)]` |
 | `:`     | (any)    | Duplicate TOS. |
 | `s`     | (any, any) | Swap. |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
