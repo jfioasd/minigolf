@@ -4,16 +4,16 @@ A stack-based esolang inspired by Vyxal's and Factor's corpus.
 The current instructions are as follows:
 | Command | Overload | Description |
 | :-----: | :------: | :---------: |
-| `, ... ;`     | (int / float)    | map over `[1..int(n)]` |
-|         | (list)   | map over TOS |
-| `:`     | (any)    | Duplicate TOS |
+| `, ... ;`     | (list)    | Map loop. |
+|         | (intN)   | map over `[1 .. int(N)]` |
+| `:`     | (any)    | Duplicate TOS. |
 | `s`     | (any, any) | Swap. |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
-|         | (ND list) | Flatten. |
+|         | (list) | Flatten. |
 | `+`     | (int/list, int) | Add. (Vectorizes) |
 |         | (1D list) | Sum. |
 |         | (2D list) | Vertical sum. |
-| `i`     |        | Push next (cyclic) input (or `-1` if input is empty)|
+| `i`     |        | Push next cyclic input (or `-1` if input is empty)|
 | `n`     |        | Push current item in map (or `2` if outside of loop) |
 
 Those commands were added later in order to make minigolf easier to program in:
