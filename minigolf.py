@@ -23,7 +23,7 @@ parser.add_argument('-t',
 args = parser.parse_args()
 
 if args.v:
-    print("v0.5")
+    print("v0.6")
     exit(0)
 
 code = open(args.file).read()
