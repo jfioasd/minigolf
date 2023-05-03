@@ -37,8 +37,7 @@ Those commands were added later in order to make minigolf easier to program in:
 | `#`     | (list) | Length of a list. |
 | `o`     | (list) | Reverse a list. |
 |         | (int)  | X + 1. |
-| `y`     | (list)     | Uniquify (preserves order). |
-|         | (int)      | 2 ** X. |
+| `y`     | (int)      | 2 ** X. |
 | `%`     | (int, int) | Modulo. |
 | `!`     | (any)      | Logical not - see definition of minigolf truthy below. |
 
