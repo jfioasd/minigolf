@@ -6,8 +6,8 @@ The current instructions are as follows:
 | :-----: | :------: | :---------: |
 | `, ... ;`     | (list)    | Map loop. |
 |         | (intN)   | Map over `[1..int(N)]` |
-| `:`     | (any)    | Duplicate TOS. |
-| `s`     | (any, any) | Swap. |
+| `:`     | (any)    | Dup: `( x -- x x )` |
+| `s`     | (any, any) | Swap. ` ( x y -- y x )` |
 | `*`     | (int/list, int) | Multiply. (Vectorizes) |
 |         | (list) | Flatten. |
 | `+`     | (int/list, int) | Add. (Vectorizes) |
