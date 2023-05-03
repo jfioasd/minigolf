@@ -254,8 +254,12 @@ def run(ast: list, n = 2, x = 32):
                     stack.append(int(stack.pop() * stack.pop()))
 
         elif i == "+": # add / sum
-            if type(stack[-1]) == list: # (list) - sum (implicit transpose)
-                stack.append(v_sum(transpose(stack.pop())))
+            if type(stack[-1]) == list: # (list) sum / vertical sum
+                a = stack.pop()
+                if type(a[0]) == list: # 2D - sum (implicit transpose)
+                    stack.append(v_sum(transpose(a)))
+                else:
+                    stack.append(sum(a))
 
             else:
                 if len(stack) == 1:
@@ -276,6 +280,10 @@ def run(ast: list, n = 2, x = 32):
         elif i == "%": # Modulo (does not vectorize)
             R, L = stack.pop(), stack.pop()
             stack.append(L % R)
+
+        elif i == "/": # Division (does not vectorize)
+            R, L = stack.pop(), stack.pop()
+            stack.append(L / R)
 
         elif i == "n": # current foreach item / 2
             stack.append(n)
