@@ -24,7 +24,6 @@ Those commands were added later in order to make minigolf easier to program in:
 | `[ ... ]` | / | Push an array of codepoints onto the stack. Nestable. |
 | `x`     |        | Push current 0-based iteration index in map (or `32` if outside of loop) |
 | `a`     |        | Push current value of accumulator (initially 20) |
-| `e`     |        | Copy TOS to Acc, does not pop TOS. |
 | `u`     |        | Pop TOS to Acc. |
 | `v`     | (any, any) | Over: `( ... a b -- ... a b a )` |
 | `&`     | (list) | Call TOS as a minigolf program. |
