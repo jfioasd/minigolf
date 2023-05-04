@@ -238,11 +238,11 @@ def run(ast: list, n = 2, x = 32):
                     a, b = stack.pop(), stack.pop()
                     r = []
                     for i in b:
-                        r.append(int(i * a))
+                        r.append(i * a)
                     stack.append(r)
 
                 else: # (int, int) - a * b
-                    stack.append(int(stack.pop() * stack.pop()))
+                    stack.append(stack.pop() * stack.pop())
 
         elif i == "+": # add / sum
             if type(stack[-1]) == list: # (list) sum / vertical sum
