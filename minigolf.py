@@ -154,8 +154,10 @@ arities = {
     "!": 1
 }
 
+acc = 20 # Very nice for some golfing.
+
 def run(ast: list, n = 2, x = 32):
-    acc = 20 # Very nice for some golfing.
+    global acc
     global stack
     global inputs_idx
 
