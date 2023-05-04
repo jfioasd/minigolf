@@ -212,11 +212,11 @@ def run(ast: list, n = 2, x = 32):
         elif i == "&": # Call TOS / Call TOS with arg.
             if type(stack[-1]) == list: # Direct call w/ no args.
                 a = "".join(map(chr,stack.pop()))
-                run(a)
+                run(parse(a))
             else: # Call with n = TOS.
                 n_alt = stack.pop()
                 a = "".join(map(chr,stack.pop()))
-                run(a, n_alt)
+                run(parse(a), n_alt)
 
         elif i == "P": # Print (temporary operation)
             print(stack.pop())
