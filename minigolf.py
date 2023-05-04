@@ -220,6 +220,7 @@ def run(ast: list, n = 2, x = 32):
 
         elif i == "P": # Print (temporary operation)
             print(stack.pop())
+            printed = True
 
         elif i == "*": # mul / flatten
             if type(stack[-1]) == list: # (list) - flatten
