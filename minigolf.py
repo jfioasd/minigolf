@@ -250,9 +250,9 @@ def run(ast: list, n = 2, x = 32):
                 a = stack.pop()
                 if a == []:
                     stack.append(0)
-                elif type(a[0]) != list: # 2D - sum (implicit transpose)
+                elif type(a[0]) != list:
                     stack.append(sum(a))
-                else:
+                else: # 2D - sum (implicit transpose)
                     stack.append(v_sum(transpose(a)))
             else:
                 if len(stack) == 1:
