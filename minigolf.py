@@ -248,11 +248,12 @@ def run(ast: list, n = 2, x = 32):
         elif i == "+": # add / sum
             if type(stack[-1]) == list: # (list) sum / vertical sum
                 a = stack.pop()
-                if type(a[0]) == list: # 2D - sum (implicit transpose)
-                    stack.append(v_sum(transpose(a)))
-                else:
+                if a == []:
+                    stack.append(0)
+                elif type(a[0]) != list: # 2D - sum (implicit transpose)
                     stack.append(sum(a))
-
+                else:
+                    stack.append(v_sum(transpose(a)))
             else:
                 if len(stack) == 1:
                     if len(inputs) == 0:
